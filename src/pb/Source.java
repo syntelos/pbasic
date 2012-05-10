@@ -3,25 +3,20 @@ package pb;
 import java.io.IOException;
 
 import jauk.Pattern;
+import jauk.Scanner;
 
 /**
  * Document root container node
  * 
- * The following syntactic alternatives are ordered for matching
- * specificity as well as a notion of frequency of occurance.
+ * The following (top level) syntactic alternatives are ordered for
+ * matching specificity as well as a notion of frequency of occurance.
  * 
  * <pre>
  * (Comment)
  * (Config)
  * (Define)
- * (Include)
  * (Label)
- * (Gosub)
- * (Goto)
  * (Statement)
- * (Subexpression)
- * (While)
- * (For)
  * </pre>
  */
 public class Source
@@ -29,64 +24,34 @@ public class Source
 {
 
 
-    public Source(Reader reader)
+    public Source(Scanner scanner)
         throws IOException, Syntax
     {
         super();
 
-        while (reader.isNotEmpty()){
+        while (scanner.isNotEmpty()){
             try {
-                this.add(new Comment(reader));
+                this.add(new Comment(scanner));
             }
             catch (Jump j0){
                 try {
-                    this.add(new Config(reader));
+                    this.add(new Config(scanner));
                 }
                 catch (Jump j1){
                     try {
-                        this.add(new Define(reader));
+                        this.add(new Define(scanner));
                     }
                     catch (Jump j2){
                         try {
-                            this.add(new Include(reader));
+                            this.add(new Label(scanner));
                         }
                         catch (Jump j3){
                             try {
-                                this.add(new Label(reader));
+                                this.add(new Statement(scanner));
                             }
                             catch (Jump j4){
-                                try {
-                                    this.add(new Gosub(reader));
-                                }
-                                catch (Jump j5){
-                                    try {
-                                        this.add(new Goto(reader));
-                                    }
-                                    catch (Jump j6){
-                                        try {
-                                            this.add(new Statement(reader));
-                                        }
-                                        catch (Jump j7){
-                                            try {
-                                                this.add(new Subexpression(reader));
-                                            }
-                                            catch (Jump j8){
-                                                try {
-                                                    this.add(new While(reader));
-                                                }
-                                                catch (Jump j9){
-                                                    try {
-                                                        this.add(new For(reader));
-                                                    }
-                                                    catch (Jump j10){
 
-                                                        throw new Syntax(this,reader,"Unrecognized input");
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                throw new Syntax(this,scanner,"Unrecognized input");
                             }
                         }
                     }

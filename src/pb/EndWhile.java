@@ -3,6 +3,7 @@ package pb;
 import java.io.IOException;
 
 import jauk.Pattern;
+import jauk.Scanner;
 
 /**
  *
@@ -13,17 +14,17 @@ public class EndWhile
     public final static Pattern Expr = new jauk.Re("<_>*[eE][nN][dD][wW][hH][iI][lL][eE]<_>*");
 
 
-    public EndWhile(Reader reader)
+    public EndWhile(Scanner scanner)
         throws IOException, Syntax
     {
-        super(reader);
-        String input = reader.next(Expr);
+        super(scanner);
+        String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
         }
         else
-            throw new Jump(this.comment);
+            throw new Jump();
     }
 
 }

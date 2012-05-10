@@ -3,6 +3,7 @@ package pb;
 import java.io.IOException;
 
 import jauk.Pattern;
+import jauk.Scanner;
 
 /**
  * <pre>
@@ -15,58 +16,38 @@ public class Label
     public final static Pattern Expr = new jauk.Re("^<_>*[A-Za-z0-9_]+<_>*:");
 
 
-    public Label(Reader reader)
+    public Label(Scanner scanner)
         throws IOException, Syntax
     {
-        super(reader);
-        String input = reader.next(Expr);
+        super(scanner);
+        String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
                 while (true){
-                    try {
-                        this.add(new Gosub(reader));
-                    }
-                    catch (Jump j0){
-                        try {
-                            this.add(new Goto(reader));
-                        }
-                        catch (Jump j1){
-                            try {
-                                this.add(new Statement(reader));
-                            }
-                            catch (Jump j2){
-                                try {
-                                    this.add(new Subexpression(reader));
-                                }
-                                catch (Jump j3){
-                                    try {
 
-                                        this.add(new While(reader));
-                                    }
-                                    catch (Jump j4){
-
-                                        this.add(new For(reader));
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    this.add(new Statement(scanner));
                 }
             }
             catch (Jump j){
             }
 
             try {
-                this.add(new EndLabel(reader));
+                this.add(new EndLabel(scanner));
+            }
+            catch (Jump j){
+            }
+
+            try {
+                this.add(new Comment(scanner));
             }
             catch (Jump j){
             }
         }
         else
-            throw new Jump(this.comment);
+            throw new Jump();
     }
 
 }

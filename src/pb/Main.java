@@ -2,7 +2,9 @@ package pb;
 
 import java.io.File;
 import java.io.IOException;
+
 import jauk.Resource;
+import jauk.Scanner;
 
 
 public class Main {
@@ -13,7 +15,7 @@ public class Main {
 
             final Resource source = new Resource(new File(argv[0]));
             try {
-                final Reader in = new Reader(source);
+                final Scanner in = new Scanner(source);
                 try {
                     Source doc = new Source(in);
 

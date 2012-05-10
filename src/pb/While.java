@@ -3,6 +3,7 @@ package pb;
 import java.io.IOException;
 
 import jauk.Pattern;
+import jauk.Scanner;
 
 /**
  * <pre>
@@ -15,61 +16,52 @@ public class While
     public final static Pattern Expr = new jauk.Re("<_>*[wW][hH][iI][lL][eE]<_>*");
 
 
-    public While(Reader reader)
+    public While(Scanner scanner)
         throws IOException, Syntax
     {
-        super(reader);
-        String input = reader.next(Expr);
+        super(scanner);
+        String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Group(reader));
+                this.add(new Group(scanner));
             }
             catch (Jump j0){
                 try {
-                    this.add(new Subexpression(reader));
+                    this.add(new Subexpression(scanner));
                 }
                 catch (Jump j1){
 
-                    throw new Syntax(this,reader,"Missing group or subexpression following while");
+                    throw new Syntax(this,scanner,"Missing group or subexpression following while");
                 }
             }
             try {
                 while (true){
-                    try {
-                        this.add(new Gosub(reader));
-                    }
-                    catch (Jump j0){
-                        try {
-                            this.add(new Goto(reader));
-                        }
-                        catch (Jump j1){
-                            try {
-                                this.add(new Statement(reader));
-                            }
-                            catch (Jump j2){
 
-                                this.add(new Subexpression(reader));
-                            }
-                        }
-                    }
+                    this.add(new Statement(scanner));
                 }
             }
             catch (Jump j){
             }
 
             try {
-                this.add(new EndWhile(reader));
+                this.add(new EndWhile(scanner));
             }
             catch (Jump j){
 
-                throw new Syntax(this,reader,"Missing end while");
+                throw new Syntax(this,scanner,"Missing end while");
+            }
+
+            try {
+                this.add(new Comment(scanner));
+            }
+            catch (Jump j){
             }
         }
         else
-            throw new Jump(this.comment);
+            throw new Jump();
     }
 
 }

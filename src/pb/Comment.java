@@ -3,6 +3,7 @@ package pb;
 import java.io.IOException;
 
 import jauk.Pattern;
+import jauk.Scanner;
 
 /**
  *
@@ -14,17 +15,17 @@ public class Comment
 
 
 
-    public Comment(Reader reader)
+    public Comment(Scanner scanner)
         throws IOException, Syntax
     {
         super();
-        String input = reader.next(Expr);
+        String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
         }
         else
-            throw new Jump(this.comment);
+            throw new Jump();
     }
 
 }

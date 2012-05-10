@@ -3,6 +3,7 @@ package pb;
 import java.io.IOException;
 
 import jauk.Pattern;
+import jauk.Scanner;
 
 /**
  *
@@ -13,17 +14,23 @@ public class Define
     public final static Pattern Expr = new jauk.Re("<_>*[dD][eE][fF][iI][nN][eE]<_>+(<Alpha>|\"_\")+<_>+(<AlphaNumDot>|\"_\")+<_>*");
 
 
-    public Define(Reader reader)
+    public Define(Scanner scanner)
         throws IOException, Syntax
     {
         super();
-        String input = reader.next(Expr);
+        String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
+
+            try {
+                this.add(new Comment(scanner));
+            }
+            catch (Jump j){
+            }
         }
         else
-            throw new Jump(this.comment);
+            throw new Jump();
     }
 
 }

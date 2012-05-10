@@ -20,7 +20,7 @@
 package pb;
 
 /**
- * Parse process flow jump out of constructor.  No match, safe to
+ * Normal parsing: proceed out of constructor.  No match: safe to
  * resume parsing.
  * 
  * @author jdp
@@ -29,14 +29,7 @@ final class Jump
     extends java.lang.RuntimeException
 {
 
-    public final Comment comment;
-
     Jump(){
         super();
-        this.comment = null;
-    }
-    Jump(Comment comment){
-        super();
-        this.comment = comment;
     }
 }

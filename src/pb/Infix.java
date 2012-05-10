@@ -17,18 +17,18 @@ public class Infix
     public final static Pattern Expr = new jauk.Re("<_>*(\"+\"|\"-\"|\"*\"|\"/\"|\"=\"|\"%\"|\"==\"|\"!=\"|\"<>\"|\"<\"|\">\"|\"<=\"|\">=\"|\"&&\"|\"||\")<_>*");
 
 
-    public Infix(Reader reader)
+    public Infix(Scanner scanner)
         throws IOException, Syntax
     {
-        super(reader);
+        super(scanner);
 
-        String input = reader.next(Expr);
+        String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
         }
         else
-            throw new Jump(this.comment);
+            throw new Jump();
     }
 
 }

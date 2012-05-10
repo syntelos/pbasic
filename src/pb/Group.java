@@ -16,33 +16,39 @@ public class Group
     public final static Pattern Expr = new jauk.Re("<_>*\"(\"<_>*");
 
 
-    public Group(Reader reader)
+    public Group(Scanner scanner)
         throws IOException, Syntax
     {
-        super(reader);
-        String input = reader.next(Expr);
+        super(scanner);
+        String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Subexpression(reader));
+                this.add(new Subexpression(scanner));
             }
             catch (Jump j){
 
-                throw new Syntax(this,reader,"Missing subexpression within group");
+                throw new Syntax(this,scanner,"Missing subexpression within group");
             }
 
             try {
-                this.add(new EndGroup(reader));
+                this.add(new EndGroup(scanner));
             }
             catch (Jump j){
 
-                throw new Syntax(this,reader,"Missing close paren end group");
+                throw new Syntax(this,scanner,"Missing close paren end group");
+            }
+
+            try {
+                this.add(new Comment(scanner));
+            }
+            catch (Jump j){
             }
         }
         else
-            throw new Jump(this.comment);
+            throw new Jump();
     }
 
 }

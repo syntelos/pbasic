@@ -3,6 +3,7 @@ package pb;
 import java.io.IOException;
 
 import jauk.Pattern;
+import jauk.Scanner;
 
 /**
  * <pre>
@@ -15,24 +16,30 @@ public class Gosub
     public final static Pattern Expr = new jauk.Re("<_>*[gG][oO][sS][uU][bB]<_>*");
 
 
-    public Gosub(Reader reader)
+    public Gosub(Scanner scanner)
         throws IOException, Syntax
     {
-        super(reader);
-        String input = reader.next(Expr);
+        super(scanner);
+        String input = scanner.next(Expr);
         if (null != input){
             this.setText(input);
 
             try {
-                this.add(new Identifier(reader));
+                this.add(new Identifier(scanner));
             }
             catch (Jump j){
 
-                throw new Syntax(this,reader,"Missing identifier following gosub");
+                throw new Syntax(this,scanner,"Missing identifier following gosub");
+            }
+
+            try {
+                this.add(new Comment(scanner));
+            }
+            catch (Jump j){
             }
         }
         else
-            throw new Jump(this.comment);
+            throw new Jump();
     }
 
 }

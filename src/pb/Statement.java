@@ -3,10 +3,11 @@ package pb;
 import java.io.IOException;
 
 import jauk.Pattern;
+import jauk.Scanner;
 
 /**
  * <pre>
- * (":" (Include|Gosub|Goto|Subexpression|While|For) )
+ * ( (":")? (Include|Gosub|Goto|Subexpression|While|For) )
  * </pre>
  */
 public class Statement
@@ -14,50 +15,56 @@ public class Statement
 {
     public final static Pattern Expr = new jauk.Re("<_>*:<_>*");
 
-    public Statement(Reader reader)
+    public Statement(Scanner scanner)
         throws IOException, Syntax
     {
-        super(reader);
-        String input = reader.next(Expr);
+        super(scanner);
+        String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
+        }
 
+        try {
+            this.add(new Include(scanner));
+        }
+        catch (Jump j0){
             try {
-                this.add(new Include(reader));
+                this.add(new Gosub(scanner));
             }
-            catch (Jump j0){
+            catch (Jump j1){
                 try {
-                    this.add(new Gosub(reader));
+                    this.add(new Goto(scanner));
                 }
-                catch (Jump j1){
+                catch (Jump j2){
                     try {
-                        this.add(new Goto(reader));
+                        this.add(new Subexpression(scanner));
                     }
-                    catch (Jump j2){
+                    catch (Jump j3){
                         try {
-                            this.add(new Subexpression(reader));
+                            this.add(new While(scanner));
                         }
-                        catch (Jump j3){
+                        catch (Jump j4){
                             try {
-                                this.add(new While(reader));
+                                this.add(new For(scanner));
                             }
-                            catch (Jump j4){
-                                try {
-                                    this.add(new For(reader));
-                                }
-                                catch (Jump j5){
+                            catch (Jump j5){
 
-                                    throw new Syntax(this,reader,"Missing statement following colon");
-                                }
+                                if (this.hasText())
+                                    throw new Syntax(this,scanner,"Missing statement following colon");
+                                else
+                                    throw new Jump();
                             }
                         }
                     }
                 }
             }
         }
-        else
-            throw new Jump(this.comment);
+        try {
+            this.add(new Comment(scanner));
+        }
+        catch (Jump j){
+        }
     }
 
 }

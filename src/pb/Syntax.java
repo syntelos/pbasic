@@ -19,8 +19,10 @@
  */
 package pb;
 
+import jauk.Scanner;
+
 /**
- * Syntax error.  Failure following a related reader - scanner match,
+ * Syntax error.  Failure following a related scanner match,
  * impossible to continue parsing.
  * 
  * @author jdp
@@ -32,8 +34,8 @@ public final class Syntax
     public final Node node;
 
 
-    public Syntax(Node node, Reader reader, String msg){
-        super(msg+"\n\t"+reader.currentLine()+": "+reader.currentCapture()+"\n"+node.toString());
+    public Syntax(Node node, Scanner scanner, String msg){
+        super(msg+"\n\t"+scanner.currentLine()+": "+scanner.currentCapture()+"\n"+node.toString());
         this.node = node;
     }
 

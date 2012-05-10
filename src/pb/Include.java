@@ -3,6 +3,7 @@ package pb;
 import java.io.IOException;
 
 import jauk.Pattern;
+import jauk.Scanner;
 
 /**
  * <pre>
@@ -14,22 +15,30 @@ public class Include
 {
     public final static Pattern Expr = new jauk.Re("<_>*[iI][nN][cC][lL][uU][dD][eE]<_>*\"\"\"(<Alpha>|<Digit>|_|<Dot>)+\"\"\"<_>*");
 
-    public Include(Reader reader)
+    public Include(Scanner scanner)
         throws IOException, Syntax
     {
-        super(reader);
-        String input = reader.next(Expr);
+        super(scanner);
+        String input = scanner.next(Expr);
         if (null != input){
+
             this.setText(input);
+
             try {
-                this.add(new Identifier(reader));
+                this.add(new Identifier(scanner));
             }
             catch (Jump j){
-                throw new Syntax(this,reader,"Missing identifier following include");
+                throw new Syntax(this,scanner,"Missing identifier following include");
+            }
+
+            try {
+                this.add(new Comment(scanner));
+            }
+            catch (Jump j){
             }
         }
         else
-            throw new Jump(this.comment);
+            throw new Jump();
     }
 
 }

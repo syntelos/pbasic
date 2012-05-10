@@ -3,6 +3,7 @@ package pb;
 import java.io.IOException;
 
 import jauk.Pattern;
+import jauk.Scanner;
 
 /**
  *
@@ -12,17 +13,17 @@ public class Literal
 {
     public final static Pattern Expr = new jauk.Re("<_>*(\"$\"<Hex>+|<Digit>+(<Dot><Digit>+)*|\"%\"[01]+)<_>*");
 
-    public Literal(Reader reader)
+    public Literal(Scanner scanner)
         throws IOException, Syntax
     {
-        super(reader);
-        String input = reader.next(Expr);
+        super(scanner);
+        String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
         }
         else
-            throw new Jump(this.comment);
+            throw new Jump();
     }
 
 }

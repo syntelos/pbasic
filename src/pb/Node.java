@@ -2,6 +2,7 @@ package pb;
 
 import java.io.IOException;
 
+import jauk.Scanner;
 
 /**
  *
@@ -10,20 +11,20 @@ public abstract class Node
     extends lxl.ArrayList<Node>
 {
 
-    public final Comment comment;
-
     private String name, capture, text;
+
+    public final int linenumber;
 
 
     public Node(){
         super();
-        this.comment = null;
+        this.linenumber = 0;
     }
-    public Node(Reader reader)
+    public Node(Scanner scanner)
         throws IOException, Syntax
     {
         super();
-        this.comment = reader.comment();
+        this.linenumber = scanner.currentLine();
     }
 
 
@@ -36,8 +37,14 @@ public abstract class Node
 
         this.text = text.trim();
     }
+    public final boolean hasCapture(){
+        return (null != this.capture);
+    }
     public final String getCapture(){
         return this.capture;
+    }
+    public final boolean hasText(){
+        return (null != this.text);
     }
     public final String getText(){
         return this.text;
@@ -54,20 +61,7 @@ public abstract class Node
 
     public void print(){
 
-        if (null != this.comment){
-
-            this.comment.print();
-        }
-
-        if (null != this.text){
-
-            java.lang.System.out.printf("% 20s> %s%n",this.getName(),this.getText());
-        }
-
-        for (Node child: this){
-
-            child.print();
-        }
+        java.lang.System.out.println(this.toString());
     }
     public String toString(){
         return this.toString(1);

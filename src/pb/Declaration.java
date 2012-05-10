@@ -3,6 +3,7 @@ package pb;
 import java.io.IOException;
 
 import jauk.Pattern;
+import jauk.Scanner;
 
 /**
  *
@@ -13,27 +14,27 @@ public class Declaration
     public final static Pattern Expr = new jauk.Re("<_>*([cC][oO][nN]|[vV][aA][rR])<_>+");
 
 
-    public Declaration(Reader reader)
+    public Declaration(Scanner scanner)
         throws IOException, Syntax
     {
-        super(reader);
+        super(scanner);
 
-        String input = reader.next(Expr);
+        String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
             try {
 
-                this.add(new Type(reader));
+                this.add(new Type(scanner));
                 try {
 
-                    this.add(new Address(reader));
+                    this.add(new Address(scanner));
                 }
                 catch (Jump j0){
                 }
                 try {
 
-                    this.add(new System(reader));
+                    this.add(new System(scanner));
                 }
                 catch (Jump j0){
                 }
@@ -41,17 +42,22 @@ public class Declaration
             catch (Jump j0){
                 try {
 
-                    this.add(new Identifier(reader));
+                    this.add(new Identifier(scanner));
                 }
                 catch (Jump j1){
 
-                    throw new Syntax(this,reader,"Missing type or identifier tail of declaration");
+                    throw new Syntax(this,scanner,"Missing type or identifier tail of declaration");
                 }
+            }
+
+            try {
+                this.add(new Comment(scanner));
+            }
+            catch (Jump j){
             }
         }
         else
-            throw new Jump(this.comment);
-
+            throw new Jump();
     }
 
 }

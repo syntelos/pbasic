@@ -16,56 +16,62 @@ public class Subexpression
 {
 
 
-    public Subexpression(Reader reader)
+    public Subexpression(Scanner scanner)
         throws IOException, Syntax
     {
-        super(reader);
+        super(scanner);
 
         try {
-            this.add(new Group(reader));
+            this.add(new Group(scanner));
         }
         catch (Jump j0){
             try {
-                this.add(new Identifier(reader));
+                this.add(new Identifier(scanner));
             }
             catch (Jump j1){
 
-                this.add(new Literal(reader));
+                this.add(new Literal(scanner));
             }
         }
 
         try {
-            this.add(new Infix(reader));
+            this.add(new Infix(scanner));
         }
         catch (Jump j0){
             try {
-                this.add(new Declaration(reader));
+                this.add(new Declaration(scanner));
             }
             catch (Jump j1){
 
-                throw new Syntax(this,reader,"Missing subexpression infix or declaration following group or identifier or literal");
+                throw new Syntax(this,scanner,"Missing subexpression infix or declaration following group or identifier or literal");
             }
         }
 
         try {
-            this.add(new Group(reader));
+            this.add(new Group(scanner));
         }
         catch (Jump j0){
             try {
-                this.add(new Identifier(reader));
+                this.add(new Identifier(scanner));
             }
             catch (Jump j1){
                 try {
-                    this.add(new Literal(reader));
+                    this.add(new Literal(scanner));
                 }
                 catch (Jump j2){
 
                     if (this.isOperative()){
 
-                        throw new Syntax(this,reader,"Missing subexpression group or identifier or literal following infix or declaration");
+                        throw new Syntax(this,scanner,"Missing subexpression group or identifier or literal following infix or declaration");
                     }
                 }
             }
+        }
+
+        try {
+            this.add(new Comment(scanner));
+        }
+        catch (Jump j){
         }
     }
 
