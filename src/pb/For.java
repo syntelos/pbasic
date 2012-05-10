@@ -7,7 +7,7 @@ import jauk.Scanner;
 
 /**
  * <pre>
- * ( "For" ( Group or Subexpression ) ( Gosub or Goto or Statement or Subexpression )* EndFor )
+ * "For" (Subexpression) (Statement)* (EndFor) (Comment)?
  * </pre>
  */
 public class For
@@ -25,17 +25,13 @@ public class For
             this.setText(input);
 
             try {
-                this.add(new Group(scanner));
+                this.add(new Subexpression(scanner));
             }
-            catch (Jump j0){
-                try {
-                    this.add(new Subexpression(scanner));
-                }
-                catch (Jump j1){
+            catch (Jump j1){
 
-                    throw new Syntax(this,scanner,"Missing group or subexpression following for");
-                }
+                throw new Syntax(this,scanner,"Missing group or subexpression following for");
             }
+
             try {
                 while (true){
 

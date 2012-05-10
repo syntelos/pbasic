@@ -49,12 +49,6 @@ public class Declaration
                     throw new Syntax(this,scanner,"Missing type or identifier tail of declaration");
                 }
             }
-
-            try {
-                this.add(new Comment(scanner));
-            }
-            catch (Jump j){
-            }
         }
         else
             throw new Jump();

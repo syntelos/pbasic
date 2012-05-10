@@ -7,7 +7,7 @@ import jauk.Scanner;
 
 /**
  * <pre>
- * ( "While" ( Group or Subexpression ) ( Gosub or Goto or Statement or Subexpression )* EndWhile )
+ * "While" ( Subexpression ) ( Statement )* (EndWhile) (Comment)?
  * </pre>
  */
 public class While
@@ -26,17 +26,13 @@ public class While
             this.setText(input);
 
             try {
-                this.add(new Group(scanner));
+                this.add(new Subexpression(scanner));
             }
-            catch (Jump j0){
-                try {
-                    this.add(new Subexpression(scanner));
-                }
-                catch (Jump j1){
+            catch (Jump j1){
 
-                    throw new Syntax(this,scanner,"Missing group or subexpression following while");
-                }
+                throw new Syntax(this,scanner,"Missing group or subexpression following while");
             }
+
             try {
                 while (true){
 

@@ -8,7 +8,9 @@ import jauk.Scanner;
 /**
  * 
  * <pre>
- * (Group|Identifier|Literal) (Infix|Declaration) (Group|Identifier|Literal)?
+ * (Group) (Comment)?
+ * (Identifier) (Declaration) (Comment)?
+ * (Group|Identifier|Literal) (Infix) (Group|Identifier|Literal)? (Comment)?
  * </pre>
  */
 public class Subexpression
@@ -39,11 +41,34 @@ public class Subexpression
         }
         catch (Jump j0){
             try {
-                this.add(new Declaration(scanner));
+                if (this.isHeadIdentifier()){
+                    this.add(new Declaration(scanner));
+                    try {
+                        this.add(new Comment(scanner));
+                    }
+                    catch (Jump j){
+                    }
+                    return;
+                }
+                else
+                    throw new Jump();
             }
             catch (Jump j1){
 
-                throw new Syntax(this,scanner,"Missing subexpression infix or declaration following group or identifier or literal");
+                if (this.isHeadIdentifier() || this.isHeadLiteral()){
+
+                    throw new Syntax(this,scanner,"Missing infix or declaration following identifier or literal");
+                }
+                else if (this.isHeadGroup()){
+                    try {
+                        this.add(new Comment(scanner));
+                    }
+                    catch (Jump j){
+                    }
+                    return;
+                }
+                else
+                    throw new Jump();
             }
         }
 

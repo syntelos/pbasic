@@ -6,15 +6,12 @@ import jauk.Pattern;
 import jauk.Scanner;
 
 /**
- * Infix operator
- * 
- * <pre>
- * </pre>
+ * Infix operators include arithmetic and logic and iterator
  */
 public class Infix
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(\"+\"|\"-\"|\"*\"|\"/\"|\"=\"|\"%\"|\"==\"|\"!=\"|\"<>\"|\"<\"|\">\"|\"<=\"|\">=\"|\"&&\"|\"||\")<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"+\"|\"-\"|\"*\"|\"/\"|\"=\"|\"%\"|\"==\"|\"!=\"|\"<>\"|\"<\"|\">\"|\"<=\"|\">=\"|\"&&\"|\"||\"|\":\")<_>*");
 
 
     public Infix(Scanner scanner)

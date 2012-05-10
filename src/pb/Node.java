@@ -69,10 +69,17 @@ public abstract class Node
     public String toString(int indent){
         StringBuilder string = new StringBuilder();
 
+        Indent(indent,string);
+
         if (null != this.text){
-            Indent(indent,string);
+
             string.append(String.format("%s\t%s%n",this.getName(),this.getText()));
         }
+        else {
+
+            string.append(String.format("%s%n",this.getName()));
+        }
+
 
         for (Node child: this){
 

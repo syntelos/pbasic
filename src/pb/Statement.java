@@ -7,7 +7,7 @@ import jauk.Scanner;
 
 /**
  * <pre>
- * ( (":")? (Include|Gosub|Goto|Subexpression|While|For) )
+ * (":")? (Include|Gosub|Goto|Subexpression|While|For) (Comment)?
  * </pre>
  */
 public class Statement

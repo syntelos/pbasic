@@ -7,7 +7,7 @@ import jauk.Scanner;
 
 /**
  * <pre>
- * ( Label (Gosub|Goto|Statement|Subexpression|While|For)* EndLabel? )
+ * ( Label (Statement)* EndLabel? )
  * </pre>
  */
 public class Label
