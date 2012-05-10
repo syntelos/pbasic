@@ -12,7 +12,7 @@ import jauk.Pattern;
 public class Goto
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*goto<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[gG][oO][tT][oO]<_>*");
 
     public Goto(Reader reader)
         throws IOException, Syntax

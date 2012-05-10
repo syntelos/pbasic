@@ -10,7 +10,7 @@ import jauk.Pattern;
 public class Literal
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(\"$\"<Hex>+|<Digit>+<Dot>?<Digit>*)<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"$\"<Hex>+|<Digit>+(<Dot><Digit>+)*|\"%\"[01]+)<_>*");
 
     public Literal(Reader reader)
         throws IOException, Syntax

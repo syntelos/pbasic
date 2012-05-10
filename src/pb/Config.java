@@ -7,14 +7,14 @@ import jauk.Pattern;
 /**
  *
  */
-public class Comment
+public class Config
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*'<Line>");
+    public final static Pattern Expr = new jauk.Re("<_>*\"@\"<Line>");
 
 
 
-    public Comment(Reader reader)
+    public Config(Reader reader)
         throws IOException, Syntax
     {
         super();

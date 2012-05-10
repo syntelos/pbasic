@@ -7,14 +7,13 @@ import jauk.Pattern;
 /**
  *
  */
-public class Comment
+public class Define
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*'<Line>");
+    public final static Pattern Expr = new jauk.Re("<_>*[dD][eE][fF][iI][nN][eE]<_>+(<Alpha>|\"_\")+<_>+(<AlphaNumDot>|\"_\")+<_>*");
 
 
-
-    public Comment(Reader reader)
+    public Define(Reader reader)
         throws IOException, Syntax
     {
         super();

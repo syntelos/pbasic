@@ -59,9 +59,9 @@ public abstract class Node
             this.comment.print();
         }
 
-        if (null != this.capture){
+        if (null != this.text){
 
-            System.out.printf("% 20s> %s%n",this.getName(),this.getCapture());
+            java.lang.System.out.printf("% 20s> %s%n",this.getName(),this.getText());
         }
 
         for (Node child: this){
@@ -69,10 +69,32 @@ public abstract class Node
             child.print();
         }
     }
+    public String toString(){
+        return this.toString(1);
+    }
+    public String toString(int indent){
+        StringBuilder string = new StringBuilder();
+
+        if (null != this.text){
+            Indent(indent,string);
+            string.append(String.format("%s\t%s%n",this.getName(),this.getText()));
+        }
+
+        for (Node child: this){
+
+            string.append(child.toString(indent+1));
+        }
+        return string.toString();
+    }
 
 
     public final static String NameOf(Class<? extends Node> nodeclass){
 
         return nodeclass.getSimpleName();
+    }
+    public final static void Indent(int indent, StringBuilder string){
+        for (int cc = 0; cc < indent; cc++){
+            string.append('\t');
+        }
     }
 }

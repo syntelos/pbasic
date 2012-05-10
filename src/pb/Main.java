@@ -21,20 +21,20 @@ public class Main {
                 }
                 catch (Syntax sx){
                     sx.printStackTrace();
-                    System.exit(1);
+                    java.lang.System.exit(1);
                 }
                 finally {
                     in.close();
                 }
             }
             catch (IOException exc){
-                System.err.printf("Unable to read file '%s'%n",argv[0]);
-                System.exit(1);
+                java.lang.System.err.printf("Unable to read file '%s'%n",argv[0]);
+                java.lang.System.exit(1);
             }
         }
         else {
-            System.err.println("Usage: pbasic file.bas");
-            System.exit(1);
+            java.lang.System.err.println("Usage: pbasic file.bas");
+            java.lang.System.exit(1);
         }
     }
 }

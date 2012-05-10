@@ -38,7 +38,7 @@
 
     <delete file="${target.jar}"/>
 
-    <jar jarfile="${target.jar}" basedir="${bin}">
+    <jar jarfile="${target.jar}" basedir="${bin}" manifest="${src}/Manifest.mf">
 
       <zipfileset src="${toString:lib.lxl}"/>
       <zipfileset src="${toString:lib.jauk}"/>

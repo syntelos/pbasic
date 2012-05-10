@@ -6,7 +6,7 @@ import jauk.Pattern;
 
 /**
  * <pre>
- * (":" (Gosub|Goto|Subexpression|While|For) )
+ * (":" (Include|Gosub|Goto|Subexpression|While|For) )
  * </pre>
  */
 public class Statement
@@ -24,27 +24,32 @@ public class Statement
             this.setText(input);
 
             try {
-                this.add(new Gosub(reader));
+                this.add(new Include(reader));
             }
             catch (Jump j0){
                 try {
-                    this.add(new Goto(reader));
+                    this.add(new Gosub(reader));
                 }
                 catch (Jump j1){
                     try {
-                        this.add(new Subexpression(reader));
+                        this.add(new Goto(reader));
                     }
                     catch (Jump j2){
                         try {
-                            this.add(new While(reader));
+                            this.add(new Subexpression(reader));
                         }
                         catch (Jump j3){
                             try {
-                                this.add(new For(reader));
+                                this.add(new While(reader));
                             }
                             catch (Jump j4){
+                                try {
+                                    this.add(new For(reader));
+                                }
+                                catch (Jump j5){
 
-                                throw new Syntax(this,reader,"Missing statement following colon");
+                                    throw new Syntax(this,reader,"Missing statement following colon");
+                                }
                             }
                         }
                     }

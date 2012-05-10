@@ -8,7 +8,7 @@ import jauk.Scanner;
 /**
  * 
  * <pre>
- * (Group|Identifier|Literal) (Infix|Declaration) (Group|Identifier|Literal)
+ * (Group|Identifier|Literal) (Infix|Declaration) (Group|Identifier|Literal)?
  * </pre>
  */
 public class Subexpression
@@ -60,17 +60,38 @@ public class Subexpression
                 }
                 catch (Jump j2){
 
-                    throw new Syntax(this,reader,"Missing subexpression group or identifier or literal following infix or declaration");
+                    if (this.isOperative()){
+
+                        throw new Syntax(this,reader,"Missing subexpression group or identifier or literal following infix or declaration");
+                    }
                 }
             }
         }
     }
 
 
+    public boolean isHeadGroup(){
+        return (this.get(0) instanceof Group);
+    }
+    public boolean isHeadIdentifier(){
+        return (this.get(0) instanceof Identifier);
+    }
+    public boolean isHeadLiteral(){
+        return (this.get(0) instanceof Identifier);
+    }
     public boolean isOperative(){
         return (this.get(1) instanceof Infix);
     }
     public boolean isDeclarative(){
         return (this.get(1) instanceof Declaration);
+    }
+    public boolean isTailGroup(){
+        return (this.get(2) instanceof Group);
+    }
+    public boolean isTailIdentifier(){
+        return (this.get(2) instanceof Identifier);
+    }
+    public boolean isTailLiteral(){
+        return (this.get(2) instanceof Identifier);
     }
 }

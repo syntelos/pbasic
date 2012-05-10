@@ -10,7 +10,7 @@ import jauk.Pattern;
 public class Type
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*([bB][yY][tT][eE]|[wW][oO][rR][dD]|[bB][iI][tT])<_>*(\\[<Digit>+\\]|<Dot><Digit>+)?<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*([bB][yY][tT][eE]|[wW][oO][rR][dD]|[bB][iI][tT])<_>*");
 
 
     public Type(Reader reader)

@@ -25,6 +25,18 @@ public class Declaration
             try {
 
                 this.add(new Type(reader));
+                try {
+
+                    this.add(new Address(reader));
+                }
+                catch (Jump j0){
+                }
+                try {
+
+                    this.add(new System(reader));
+                }
+                catch (Jump j0){
+                }
             }
             catch (Jump j0){
                 try {

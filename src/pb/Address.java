@@ -7,14 +7,13 @@ import jauk.Pattern;
 /**
  *
  */
-public class Comment
+public class Address
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*'<Line>");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"$\"<Hex>+|[bB][aA][nN][kK]<Digit>+)<_>*");
 
 
-
-    public Comment(Reader reader)
+    public Address(Reader reader)
         throws IOException, Syntax
     {
         super();

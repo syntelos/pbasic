@@ -33,7 +33,7 @@ public final class Syntax
 
 
     public Syntax(Node node, Reader reader, String msg){
-        super(msg+"\n\t"+reader.currentLine()+": "+reader.currentCapture());
+        super(msg+"\n\t"+reader.currentLine()+": "+reader.currentCapture()+"\n"+node.toString());
         this.node = node;
     }
 

@@ -12,6 +12,9 @@ import jauk.Pattern;
  * 
  * <pre>
  * (Comment)
+ * (Config)
+ * (Define)
+ * (Include)
  * (Label)
  * (Gosub)
  * (Goto)
@@ -37,35 +40,50 @@ public class Source
             }
             catch (Jump j0){
                 try {
-                    this.add(new Label(reader));
+                    this.add(new Config(reader));
                 }
                 catch (Jump j1){
                     try {
-                        this.add(new Gosub(reader));
+                        this.add(new Define(reader));
                     }
                     catch (Jump j2){
                         try {
-                            this.add(new Goto(reader));
+                            this.add(new Include(reader));
                         }
                         catch (Jump j3){
                             try {
-                                this.add(new Statement(reader));
+                                this.add(new Label(reader));
                             }
                             catch (Jump j4){
                                 try {
-                                    this.add(new Subexpression(reader));
+                                    this.add(new Gosub(reader));
                                 }
                                 catch (Jump j5){
                                     try {
-                                        this.add(new While(reader));
+                                        this.add(new Goto(reader));
                                     }
                                     catch (Jump j6){
                                         try {
-                                            this.add(new For(reader));
+                                            this.add(new Statement(reader));
                                         }
                                         catch (Jump j7){
+                                            try {
+                                                this.add(new Subexpression(reader));
+                                            }
+                                            catch (Jump j8){
+                                                try {
+                                                    this.add(new While(reader));
+                                                }
+                                                catch (Jump j9){
+                                                    try {
+                                                        this.add(new For(reader));
+                                                    }
+                                                    catch (Jump j10){
 
-                                            throw new Syntax(this,reader,"Unrecognized input");
+                                                        throw new Syntax(this,reader,"Unrecognized input");
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
