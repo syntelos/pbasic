@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="pbasic" default="jar">
+
+  <property name="main.class" value="pb.Main"/>
+
+  <property name="src" value="src"/>
+  <property name="lib" value="lib"/>
+  <property name="bin" value="bin"/>
+  <property name="etc" value="etc"/>
+
+  <property name="target.jar" value="${ant.project.name}.jar"/>
+
+  <property name="compiler.source" value="1.6"/>
+  <property name="compiler.target" value="1.6"/>
+  <property name="compiler.debug" value="true"/>
+  <property name="compiler.encoding" value="utf-8"/>
+
+  <path id="lib.path">
+    <fileset dir="${lib}">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+
+  <path id="lib.lxl">
+    <fileset dir="${lib}">
+      <include name="**/lxl-*.jar" />
+    </fileset>
+  </path>
+
+  <path id="lib.jauk">
+    <fileset dir="${lib}">
+      <include name="**/jauk-*.jar" />
+    </fileset>
+  </path>
+
+
+  <target name="jar" depends="compile,manifest" description="Package bin to target jar, clean bin.">
+
+    <delete file="${target.jar}"/>
+
+    <jar jarfile="${target.jar}" basedir="${bin}">
+
+      <zipfileset src="${toString:lib.lxl}"/>
+      <zipfileset src="${toString:lib.jauk}"/>
+    </jar>
+
+    <delete dir="${bin}"/>
+  </target>
+
+  <target name="compile" description="Compile src to bin">
+
+    <mkdir dir="${bin}"/>
+
+    <javac srcdir="${src}" destdir="${bin}" debug="${compiler.debug}" encoding="${compiler.encoding}"
+           source="${compiler.source}" target="${compiler.target}" includeAntRuntime="false"
+           classpathref="lib.path" />
+
+  </target>
+
+  <target name="manifest" >
+
+    <java classpath="${etc}" classname="Manifest" fork="true">
+      <arg value="${main.class}"/>
+    </java>
+  </target>
+
+</project>
