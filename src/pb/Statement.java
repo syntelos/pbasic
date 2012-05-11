@@ -67,4 +67,8 @@ public class Statement
         }
     }
 
+
+    public static void main(String[] argv){
+        java.lang.System.out.println(Expr.toString());
+    }
 }

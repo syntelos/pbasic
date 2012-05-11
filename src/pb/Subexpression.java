@@ -10,6 +10,7 @@ import jauk.Scanner;
  * <pre>
  * (Group) (Comment)?
  * (Identifier) (Declaration) (Comment)?
+ * (Identifier) (Sequence) (Comment)?
  * (Group|Identifier|Literal) (Infix) (Group|Identifier|Literal)? (Comment)?
  * </pre>
  */
@@ -40,35 +41,47 @@ public class Subexpression
             this.add(new Infix(scanner));
         }
         catch (Jump j0){
-            try {
-                if (this.isHeadIdentifier()){
+
+            if (this.isHeadIdentifier()){
+                try {
                     this.add(new Declaration(scanner));
-                    try {
-                        this.add(new Comment(scanner));
-                    }
-                    catch (Jump j){
-                    }
-                    return;
                 }
-                else
-                    throw new Jump();
+                catch (Jump j1){
+                    try {
+                        /*
+                         * This pattern will match liberally
+                         * (including Identifiers, Declaration and
+                         * Literals).  It must follow more particular
+                         * patterns.
+                         */
+                        this.add(new Sequence(scanner));
+                    }
+                    catch (Jump j2){
+
+                        throw new Syntax(this,scanner,"Missing declaration or sequence following identifier");
+                    }
+                }
+                try {
+                    this.add(new Comment(scanner));
+                }
+                catch (Jump j){
+                }
+                return;
             }
-            catch (Jump j1){
+            else if (this.isHeadLiteral()){
 
-                if (this.isHeadIdentifier() || this.isHeadLiteral()){
-
-                    throw new Syntax(this,scanner,"Missing infix or declaration following identifier or literal");
+                throw new Syntax(this,scanner,"Missing infix following literal");
+            }
+            else {
+                /*
+                 * Solitary Group
+                 */
+                try {
+                    this.add(new Comment(scanner));
                 }
-                else if (this.isHeadGroup()){
-                    try {
-                        this.add(new Comment(scanner));
-                    }
-                    catch (Jump j){
-                    }
-                    return;
+                catch (Jump j){
                 }
-                else
-                    throw new Jump();
+                return;
             }
         }
 
@@ -115,6 +128,9 @@ public class Subexpression
     }
     public boolean isDeclarative(){
         return (this.get(1) instanceof Declaration);
+    }
+    public boolean isFunctional(){
+        return (this.get(1) instanceof Sequence);
     }
     public boolean isTailGroup(){
         return (this.get(2) instanceof Group);

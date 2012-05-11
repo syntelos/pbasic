@@ -32,4 +32,8 @@ public class Identifier
             throw new Jump();
     }
 
+
+    public static void main(String[] argv){
+        java.lang.System.out.println(Expr.toString());
+    }
 }

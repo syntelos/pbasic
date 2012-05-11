@@ -11,7 +11,7 @@ import jauk.Scanner;
 public class Comment
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*'<Line>");
+    public final static Pattern Expr = new jauk.Re("<_>*\"'\"<Line>");
 
 
 
@@ -28,4 +28,8 @@ public class Comment
             throw new Jump();
     }
 
+
+    public static void main(String[] argv){
+        java.lang.System.out.println(Expr.toString());
+    }
 }

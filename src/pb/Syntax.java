@@ -35,7 +35,7 @@ public final class Syntax
 
 
     public Syntax(Node node, Scanner scanner, String msg){
-        super(msg+"\n\t"+scanner.currentLine()+": "+scanner.currentCapture()+"\n"+node.toString());
+        super(msg+"\n\t"+scanner.currentLine()+": "+scanner.nextCapture()+"\n"+node.toString());
         this.node = node;
     }
 
