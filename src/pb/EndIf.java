@@ -6,15 +6,14 @@ import jauk.Pattern;
 import jauk.Scanner;
 
 /**
- *
+ * 
  */
-public class Type
+public class EndIf
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*([bB][yY][tT][eE]|[wW][oO][rR][dD]|[bB][iI][tT]|[lL][oO][nN][gG])<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[eE][nN][dD][iI][fF]<_>*");
 
-
-    public Type(Scanner scanner)
+    public EndIf(Scanner scanner)
         throws IOException, Syntax
     {
         super(scanner);
@@ -22,12 +21,6 @@ public class Type
         if (null != input){
 
             this.setText(input);
-
-            try {
-                this.add(new Qualifier(scanner));
-            }
-            catch (Jump j){
-            }
         }
         else
             throw new Jump();

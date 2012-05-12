@@ -14,6 +14,9 @@ public class Declaration
     public final static Pattern Expr = new jauk.Re("<_>*([cC][oO][nN]|[vV][aA][rR])<_>+");
 
 
+    public final boolean constant;
+
+
     public Declaration(Scanner scanner)
         throws IOException, Syntax
     {
@@ -23,6 +26,8 @@ public class Declaration
         if (null != input){
 
             this.setText(input);
+
+            this.constant = ("con".equals(this.getText().toLowerCase()));
             try {
 
                 this.add(new Type(scanner));
@@ -40,13 +45,32 @@ public class Declaration
                 }
             }
             catch (Jump j0){
-                try {
 
-                    this.add(new Identifier(scanner));
+                if (this.constant){
+                    try {
+
+                        this.add(new Identifier(scanner));
+                    }
+                    catch (Jump j1){
+                        try {
+
+                            this.add(new Literal(scanner));
+                        }
+                        catch (Jump j2){
+
+                            throw new Syntax(this,scanner,"Missing type or identifier tail of declaration");
+                        }
+                    }
                 }
-                catch (Jump j1){
+                else {
+                    try {
 
-                    throw new Syntax(this,scanner,"Missing type or identifier tail of declaration");
+                        this.add(new Identifier(scanner));
+                    }
+                    catch (Jump j1){
+
+                        throw new Syntax(this,scanner,"Missing type or identifier tail of declaration");
+                    }
                 }
             }
         }

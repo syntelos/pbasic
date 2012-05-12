@@ -6,28 +6,23 @@ import jauk.Pattern;
 import jauk.Scanner;
 
 /**
- *
+ * Prefix arithmetic operators 
  */
-public class Type
-    extends Node
+public class PrefixArithmetic
+    extends Prefix
 {
-    public final static Pattern Expr = new jauk.Re("<_>*([bB][yY][tT][eE]|[wW][oO][rR][dD]|[bB][iI][tT]|[lL][oO][nN][gG])<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*([aA][bB][sS]|[sS][qQ][rR]|[sS][iI][nN]|[dD][iI][vV]\"32\"|\"~\")<_>*");
 
 
-    public Type(Scanner scanner)
+    public PrefixArithmetic(Scanner scanner)
         throws IOException, Syntax
     {
         super(scanner);
+
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
-
-            try {
-                this.add(new Qualifier(scanner));
-            }
-            catch (Jump j){
-            }
         }
         else
             throw new Jump();

@@ -18,12 +18,19 @@ public class Statement
     public Statement(Scanner scanner)
         throws IOException, Syntax
     {
+        this(scanner,false);
+    }
+    public Statement(Scanner scanner, boolean inline)
+        throws IOException, Syntax
+    {
         super(scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
         }
+        else if (inline)
+            throw new Jump();
 
         try {
             this.add(new Include(scanner));
@@ -38,7 +45,7 @@ public class Statement
                 }
                 catch (Jump j2){
                     try {
-                        this.add(new Subexpression(scanner));
+                        this.add(new If(scanner));
                     }
                     catch (Jump j3){
                         try {
@@ -49,11 +56,16 @@ public class Statement
                                 this.add(new For(scanner));
                             }
                             catch (Jump j5){
+                                try {
+                                    this.add(new Subexpression(scanner,inline));
+                                }
+                                catch (Jump j6){
 
-                                if (this.hasText())
-                                    throw new Syntax(this,scanner,"Missing statement following colon");
-                                else
-                                    throw new Jump();
+                                    if (this.hasText())
+                                        throw new Syntax(this,scanner,"Missing statement following colon");
+                                    else
+                                        throw new Jump();
+                                }
                             }
                         }
                     }

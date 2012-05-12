@@ -7,15 +7,16 @@ import jauk.Pattern;
 import jauk.Scanner;
 
 /**
- * Sequence list follows identifier as function call arguments
+ * Sequence list follows identifier as function call arguments.  A
+ * sequence list contains {@link QuotedString}, {@link Identifier}, or
+ * {@link Literal} -- separated by commas.
+ * 
+ * @see Subexpression
  */
 public class Sequence
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(<DoubleQuoted>|(<AlphaNumDot>|[_])+)(<_>*\",\"<_>*(<DoubleQuoted>|(<AlphaNumDot>|[_]))+)*<_>*");
-
-
-    public final String[] list;
+    public final static Pattern Expr = new jauk.Re("<_>*\",\"<_>*");
 
 
     public Sequence(Scanner scanner)
@@ -23,63 +24,44 @@ public class Sequence
     {
         super(scanner);
 
-        String input = scanner.next(Expr);
-        if (null != input){
-
-            this.setText(input);
-
-            this.list = List(this);
-        }
-        else
-            throw new Jump();
-    }
-
-
-    public final static String[] List(Node node){
-        String[] list = null;
-        char[] text = node.getText().toCharArray();
-        final int count = text.length;
-        int start = 0;
-        boolean inquoted = false;
-        for (int cc = 0; cc < count; cc++){
-            char ch = text[cc];
-            switch (ch){
-            case '\"':
-                if (inquoted){
-                    list = Add(list,(new String(text,start,(cc-start+1))));
-                    inquoted = false;
-                    start = (cc+1);
-                }
-                else {
-                    inquoted = true;
-                    start = cc;
-                }
-                break;
-            case ',':
-                if (!inquoted){
-                    list = Add(list,(new String(text,start,(cc-start))).trim());
-                    start = (cc+1);
-                }
-                break;
-            default:
-                break;
+        while (true){
+            try {
+                this.add(new QuotedString(scanner));
             }
+            catch (Jump j0){
+                try {
+                    this.add(new Identifier(scanner));
+                }
+                catch (Jump j1){
+
+                    try {
+                        this.add(new Literal(scanner));
+                    }
+                    catch (Jump j2){
+
+                        try {
+                            this.add(new Array(scanner));
+                        }
+                        catch (Jump j3){
+
+                            break;
+                        }
+                    }
+                }
+            }
+            String input = scanner.next(Expr);
+            if (null != input)
+                continue;
+            else
+                break;
         }
-        return list;
-    }
-    public final static String[] Add(String[] list, String item){
-        if (null == item || 1 > item.length())
-            return list;
-        else if (null == list)
-            return new String[]{item};
-        else {
-            final int count = list.length;
-            String[] copier = new String[count+1];
-            java.lang.System.arraycopy(list,0,copier,0,count);
-            copier[count] = item;
-            return copier;
+
+        if (this.isEmpty()){
+
+            throw new Jump();
         }
     }
+
 
     public static void main(String[] argv){
         java.lang.System.out.println(Expr.toString());

@@ -6,27 +6,29 @@ import jauk.Pattern;
 import jauk.Scanner;
 
 /**
- *
+ * {@link For} range iterator
  */
-public class Type
-    extends Node
+public class Range
+    extends Infix
 {
-    public final static Pattern Expr = new jauk.Re("<_>*([bB][yY][tT][eE]|[wW][oO][rR][dD]|[bB][iI][tT]|[lL][oO][nN][gG])<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"[tT][oO]\")<_>*");
 
 
-    public Type(Scanner scanner)
+    public Range(Scanner scanner)
         throws IOException, Syntax
     {
         super(scanner);
+
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
-
             try {
-                this.add(new Qualifier(scanner));
+                this.add(new Literal(scanner));
             }
             catch (Jump j){
+
+                throw new Syntax(this,scanner,"Missing for range end literal");
             }
         }
         else

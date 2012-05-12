@@ -6,15 +6,16 @@ import jauk.Pattern;
 import jauk.Scanner;
 
 /**
- *
+ * <pre>
+ * ("goto" Identifier)
+ * </pre>
  */
-public class Type
+public class Case
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*([bB][yY][tT][eE]|[wW][oO][rR][dD]|[bB][iI][tT]|[lL][oO][nN][gG])<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[gG][oO][tT][oO]<_>*");
 
-
-    public Type(Scanner scanner)
+    public Case(Scanner scanner)
         throws IOException, Syntax
     {
         super(scanner);
@@ -24,7 +25,15 @@ public class Type
             this.setText(input);
 
             try {
-                this.add(new Qualifier(scanner));
+                this.add(new Identifier(scanner));
+            }
+            catch (Jump j){
+
+                throw new Syntax(this,scanner,"Missing identifier following goto");
+            }
+
+            try {
+                this.add(new Comment(scanner));
             }
             catch (Jump j){
             }

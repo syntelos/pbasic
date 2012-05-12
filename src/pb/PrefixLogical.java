@@ -6,28 +6,23 @@ import jauk.Pattern;
 import jauk.Scanner;
 
 /**
- *
+ * Prefix logical operators
  */
-public class Type
-    extends Node
+public class PrefixLogical
+    extends Prefix
 {
-    public final static Pattern Expr = new jauk.Re("<_>*([bB][yY][tT][eE]|[wW][oO][rR][dD]|[bB][iI][tT]|[lL][oO][nN][gG])<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"!\"|[nN][oO][tT])<_>*");
 
 
-    public Type(Scanner scanner)
+    public PrefixLogical(Scanner scanner)
         throws IOException, Syntax
     {
         super(scanner);
+
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
-
-            try {
-                this.add(new Qualifier(scanner));
-            }
-            catch (Jump j){
-            }
         }
         else
             throw new Jump();

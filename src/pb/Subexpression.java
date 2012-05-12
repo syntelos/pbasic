@@ -22,6 +22,11 @@ public class Subexpression
     public Subexpression(Scanner scanner)
         throws IOException, Syntax
     {
+        this(scanner,false);
+    }
+    public Subexpression(Scanner scanner, boolean inline)
+        throws IOException, Syntax
+    {
         super(scanner);
 
         try {
@@ -38,7 +43,21 @@ public class Subexpression
         }
 
         try {
-            this.add(new Infix(scanner));
+            /*
+             * Infix operators
+             */
+            try {
+                this.add(new Logical(scanner));
+            }
+            catch (Jump j0){
+                try {
+                    this.add(new Arithmetic(scanner));
+                }
+                catch (Jump j1){
+
+                    this.add(new Relational(scanner));
+                }
+            }
         }
         catch (Jump j0){
 
@@ -58,7 +77,8 @@ public class Subexpression
                     }
                     catch (Jump j2){
 
-                        throw new Syntax(this,scanner,"Missing declaration or sequence following identifier");
+                        if (!inline)
+                            throw new Syntax(this,scanner,"Missing declaration or sequence following identifier");
                     }
                 }
                 try {
@@ -91,6 +111,14 @@ public class Subexpression
         catch (Jump j0){
             try {
                 this.add(new Identifier(scanner));
+                try {
+                    /*
+                     * e.g. A = FOO 10
+                     */
+                    this.add(new Literal(scanner));
+                }
+                catch (Jump j1){
+                }
             }
             catch (Jump j1){
                 try {

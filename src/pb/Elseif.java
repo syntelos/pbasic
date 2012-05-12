@@ -7,15 +7,15 @@ import jauk.Scanner;
 
 /**
  * <pre>
- * "For" (Subexpression) (Statement)* (EndFor) (Comment)?
+ * "ElseIf" (Subexpression) (Statement)* (EndIf) (Comment)?
  * </pre>
  */
-public class For
+public class Elseif
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[fF][oO][rR]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[eE][lL][sS][eE][iI][fF]<_>*");
 
-    public For(Scanner scanner)
+    public Elseif(Scanner scanner)
         throws IOException, Syntax
     {
         super(scanner);
@@ -29,14 +29,15 @@ public class For
             }
             catch (Jump j1){
 
-                throw new Syntax(this,scanner,"Missing range intializer subexpression following for");
+                throw new Syntax(this,scanner,"Missing range intializer subexpression following if");
             }
+
             try {
-                this.add(new Range(scanner));
+                this.add(new Then(scanner));
             }
             catch (Jump j1){
 
-                throw new Syntax(this,scanner,"Missing range iterator subexpression following for");
+                throw new Syntax(this,scanner,"Missing then following if");
             }
 
             try {
@@ -44,20 +45,6 @@ public class For
 
                     this.add(new Statement(scanner));
                 }
-            }
-            catch (Jump j){
-            }
-
-            try {
-                this.add(new EndFor(scanner));
-            }
-            catch (Jump j){
-
-                throw new Syntax(this,scanner,"Missing end for: next");
-            }
-
-            try {
-                this.add(new Comment(scanner));
             }
             catch (Jump j){
             }

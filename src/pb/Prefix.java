@@ -6,15 +6,15 @@ import jauk.Pattern;
 import jauk.Scanner;
 
 /**
- * Infix operators include {@link Arithmetic}, {@link Logical}, {@link
- * Relational} and {@link Iterator}.
+ * Prefix operators include {@link PrefixArithmetic} and {@link
+ * PrefixLogical}
  */
-public abstract class Infix
+public abstract class Prefix
     extends Node
 {
 
 
-    public Infix(Scanner scanner)
+    public Prefix(Scanner scanner)
         throws IOException, Syntax
     {
         super(scanner);
