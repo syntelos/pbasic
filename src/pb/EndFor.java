@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class EndFor
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[nN][eE][xX][tT]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[nN][eE][xX][tT]<_>");
 
 
     public EndFor(Scanner scanner)

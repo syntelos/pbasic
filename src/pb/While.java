@@ -32,7 +32,7 @@ import jauk.Scanner;
 public class While
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[wW][hH][iI][lL][eE]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[wW][hH][iI][lL][eE]");
 
 
     public While(Scanner scanner)

@@ -30,7 +30,8 @@ import jauk.Scanner;
 public class Identifier
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*<Alpha>(<Alpha>|<Digit>|_)+<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*<Alpha>(<AlphaNum>|_)+");
+
 
     public Identifier(Scanner scanner)
         throws IOException, Syntax

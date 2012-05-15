@@ -35,9 +35,9 @@ import jauk.Scanner;
 public class Array
     extends Node
 {
-    public final static Pattern Open = new jauk.Re("<_>*\"[\"<_>*");
-    public final static Pattern Sepa = new jauk.Re("<_>*\",\"<_>*");
-    public final static Pattern Close = new jauk.Re("<_>*\"]\"<_>*");
+    public final static Pattern Open = new jauk.Re("<_>*\"[\"");
+    public final static Pattern Sepa = new jauk.Re("<_>*\",\"");
+    public final static Pattern Close = new jauk.Re("<_>*\"]\"");
 
 
     public Array(Scanner scanner)

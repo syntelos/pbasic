@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class Type
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*([bB][yY][tT][eE]|[wW][oO][rR][dD]|[bB][iI][tT]|[lL][oO][nN][gG])<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*([bB][yY][tT][eE]|[wW][oO][rR][dD]|[bB][iI][tT]|[lL][oO][nN][gG])");
 
 
     public Type(Scanner scanner)

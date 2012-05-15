@@ -33,7 +33,7 @@ import jauk.Scanner;
 public class EndGroup
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*\")\"<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*\")\"");
 
 
     public EndGroup(Scanner scanner)

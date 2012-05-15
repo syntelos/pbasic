@@ -32,7 +32,7 @@ import jauk.Scanner;
 public class Elseif
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[eE][lL][sS][eE][iI][fF]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[eE][lL][sS][eE][iI][fF]<_>");
 
     public Elseif(Scanner scanner)
         throws IOException, Syntax

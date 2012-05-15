@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class Relational
     extends Infix
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(\"==\"|\"=\"|\"!=\"|\"<>\"|\"<\"|\">\"|\"<=\"|\">=\")<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"==\"|\"=\"|\"!=\"|\"<>\"|\"<\"|\">\"|\"<=\"|\">=\")");
 
 
     public Relational(Scanner scanner)

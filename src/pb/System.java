@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class System
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[sS][yY][sS][tT][eE][mM]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[sS][yY][sS][tT][eE][mM]");
 
 
     public System(Scanner scanner)

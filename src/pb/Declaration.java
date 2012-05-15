@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class Declaration
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*([cC][oO][nN]|[vV][aA][rR])<_>+");
+    public final static Pattern Expr = new jauk.Re("<_>*([cC][oO][nN]|[vV][aA][rR])<_>");
 
 
     public final boolean constant;

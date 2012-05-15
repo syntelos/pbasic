@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class Address
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(\"$\"<Hex>+|[bB][aA][nN][kK]<Digit>+)<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"$\"<Hex>+|[bB][aA][nN][kK]<Digit>+)");
 
 
     public Address(Scanner scanner)

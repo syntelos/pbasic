@@ -32,7 +32,7 @@ import jauk.Scanner;
 public class Select
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[gG][oO][tT][oO]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[sS][eE][lL][eE][cC][tT]");
 
     public Select(Scanner scanner)
         throws IOException, Syntax
@@ -44,15 +44,15 @@ public class Select
             this.setText(input);
 
             try {
-                this.add(new Identifier(scanner));
+                this.add(new Case(scanner));
             }
             catch (Jump j){
 
-                throw new Syntax(this,scanner,"Missing identifier following goto");
+                throw new Syntax(this,scanner,"Missing subexpression 'case' following 'select'");
             }
 
             try {
-                this.add(new Comment(scanner));
+                this.add(new EndSelect(scanner));
             }
             catch (Jump j){
             }

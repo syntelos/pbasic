@@ -69,8 +69,13 @@ public class Source
                                 this.add(new Statement(scanner));
                             }
                             catch (Jump j4){
+                                try {
+                                    this.add(new WhiteSpace(scanner));
+                                }
+                                catch (Jump j5){
 
-                                throw new Syntax(this,scanner,"Unrecognized input");
+                                    throw new Syntax(this,scanner,"Unrecognized input");
+                                }
                             }
                         }
                     }

@@ -32,7 +32,7 @@ import jauk.Scanner;
 public class Label
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*<Alpha>(<Alpha>|<Digit>|_)+<_>*:<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*<Alpha>(<Alpha>|<Digit>|_)+<_>*:");
 
 
     public Label(Scanner scanner)

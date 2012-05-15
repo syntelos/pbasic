@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class Else
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[eE][lL][sS][eE]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[eE][lL][sS][eE]<_>");
 
     public Else(Scanner scanner)
         throws IOException, Syntax

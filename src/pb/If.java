@@ -32,7 +32,7 @@ import jauk.Scanner;
 public class If
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[iI][fF]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[iI][fF]");
 
     public If(Scanner scanner)
         throws IOException, Syntax
@@ -62,17 +62,13 @@ public class If
             }
 
             boolean inline = false;
-
             try {
-                int second = 0;
+
                 while (true){
 
                     this.add(new Statement(scanner,inline));
 
-                    if (0 == second){
-                        second = scanner.currentLine();
-                        inline = (first == second);
-                    }
+                    inline = (first == scanner.currentLine());
                 }
             }
             catch (Jump j){

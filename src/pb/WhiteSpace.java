@@ -25,19 +25,20 @@ import jauk.Pattern;
 import jauk.Scanner;
 
 /**
- * Prefix logical operators
+ * Called from {@link Source} to permit token definitions to not
+ * include trailing whitespace.  When token definitions include
+ * trailing whitespace, their line numbers can increment prematurely.
  */
-public class PrefixLogical
-    extends Prefix
+public class WhiteSpace
+    extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(\"!\"|[nN][oO][tT])");
+    public final static Pattern Expr = new jauk.Re("<_>+");
 
 
-    public PrefixLogical(Scanner scanner)
+    public WhiteSpace(Scanner scanner)
         throws IOException, Syntax
     {
         super(scanner);
-
         String input = scanner.next(Expr);
         if (null != input){
 

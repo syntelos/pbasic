@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class EndIf
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[eE][nN][dD][iI][fF]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[eE][nN][dD][iI][fF]<_>");
 
     public EndIf(Scanner scanner)
         throws IOException, Syntax

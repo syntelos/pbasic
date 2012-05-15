@@ -31,7 +31,7 @@ import jauk.Scanner;
 public class QuotedString
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*<DoubleQuoted><_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*<DoubleQuoted>");
 
 
 

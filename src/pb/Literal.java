@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class Literal
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(\"$\"<Hex>+|<Digit>+(<Dot><Digit>+)*|\"%\"[01]+)<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"$\"<Hex>+|<Digit>+(<Dot><Digit>+)*|\"%\"[01]+)");
 
     public Literal(Scanner scanner)
         throws IOException, Syntax

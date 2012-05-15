@@ -35,7 +35,7 @@ import jauk.Scanner;
 public class Sequence
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*\",\"<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*\",\"");
 
 
     public Sequence(Scanner scanner)

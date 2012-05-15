@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class EndWhile
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[eE][nN][dD][wW][hH][iI][lL][eE]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[eE][nN][dD][wW][hH][iI][lL][eE]<_>");
 
 
     public EndWhile(Scanner scanner)

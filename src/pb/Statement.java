@@ -32,7 +32,8 @@ import jauk.Scanner;
 public class Statement
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*:<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*:");
+
 
     public Statement(Scanner scanner)
         throws IOException, Syntax
@@ -68,22 +69,27 @@ public class Statement
                     }
                     catch (Jump j3){
                         try {
-                            this.add(new While(scanner));
+                            this.add(new Select(scanner));
                         }
                         catch (Jump j4){
                             try {
-                                this.add(new For(scanner));
+                                this.add(new While(scanner));
                             }
                             catch (Jump j5){
                                 try {
-                                    this.add(new Subexpression(scanner,inline));
+                                    this.add(new For(scanner));
                                 }
                                 catch (Jump j6){
+                                    try {
+                                        this.add(new Subexpression(scanner,inline));
+                                    }
+                                    catch (Jump j7){
 
-                                    if (this.hasText())
-                                        throw new Syntax(this,scanner,"Missing statement following colon");
-                                    else
-                                        throw new Jump();
+                                        if (this.hasText())
+                                            throw new Syntax(this,scanner,"Missing statement following colon");
+                                        else
+                                            throw new Jump();
+                                    }
                                 }
                             }
                         }

@@ -36,16 +36,16 @@ Overview
 
   Comment, Config, Define, Label, Statement
 
-    Primary syntax nodes
+    Primary syntax nodes: see Source
 
-  Subexpression, Gosub, Goto, While, For, Include
+  Include, Gosub, Goto, If, Select, While, For, Subexpression
 
-    Secondary syntax nodes
+    Secondary syntax nodes: see Statement
 
   Scanner
 
-    Jauk input scanner: set a break point in the match method on
-    "return match" to debug Jauk applications.
+    Jauk input scanner.  To debug Jauk applications set a break point
+    in the match method on "return match".
 
     http://github.com/syntelos/jauk/blob/master/src/jauk/Scanner.java
 

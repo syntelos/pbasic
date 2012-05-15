@@ -32,7 +32,7 @@ import jauk.Scanner;
 public class Gosub
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[gG][oO][sS][uU][bB]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[gG][oO][sS][uU][bB]<_>");
 
 
     public Gosub(Scanner scanner)

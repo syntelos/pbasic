@@ -32,7 +32,7 @@ import jauk.Scanner;
 public class For
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[fF][oO][rR]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[fF][oO][rR]<_>");
 
     public For(Scanner scanner)
         throws IOException, Syntax

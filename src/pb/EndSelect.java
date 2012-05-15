@@ -25,19 +25,18 @@ import jauk.Pattern;
 import jauk.Scanner;
 
 /**
- * Prefix logical operators
+ *
  */
-public class PrefixLogical
-    extends Prefix
+public class EndSelect
+    extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(\"!\"|[nN][oO][tT])");
+    public final static Pattern Expr = new jauk.Re("<_>*[eE][nN][dD]<_>+[sS][eE][lL][eE][cC][tT]");
 
 
-    public PrefixLogical(Scanner scanner)
+    public EndSelect(Scanner scanner)
         throws IOException, Syntax
     {
         super(scanner);
-
         String input = scanner.next(Expr);
         if (null != input){
 

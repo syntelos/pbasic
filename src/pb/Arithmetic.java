@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class Arithmetic
     extends Infix
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(\"+\"|\"-\"|\"*\"|\"**\"|\"*/\"|\"/\"|\"=\"|\"//\"|[hH][yY][pP]|[mM][iI][nN]|[mM][aA][xX]|[rR][eE][vV]|[dD][iI][gG]|\"<<\"|\">>\"|[aA][tT][nN]]|\"&\"|\"|\"|\"^\"|\"~\"|\"&/\"|\"|/\"|\"^/\")<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"+\"|\"-\"|\"*\"|\"**\"|\"*/\"|\"/\"|\"=\"|\"//\"|[hH][yY][pP]|[mM][iI][nN]|[mM][aA][xX]|[rR][eE][vV]|[dD][iI][gG]|\"<<\"|\">>\"|[aA][tT][nN]]|\"&\"|\"|\"|\"^\"|\"~\"|\"&/\"|\"|/\"|\"^/\")");
 
 
     public Arithmetic(Scanner scanner)

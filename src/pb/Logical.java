@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class Logical
     extends Infix
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(\"&&\"|\"||\"|\"^^\"|[aA][nN][dD]|[oO][rR]|[xX][oO][rR]|[aA][nN][dD][nN][oO][tT]|[oO][rR][nN][oO][tT]|[xX][oO][rR][nN][oO][tT])<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"&&\"|\"||\"|\"^^\"|[aA][nN][dD]|[oO][rR]|[xX][oO][rR]|[aA][nN][dD][nN][oO][tT]|[oO][rR][nN][oO][tT]|[xX][oO][rR][nN][oO][tT])");
 
 
     public Logical(Scanner scanner)

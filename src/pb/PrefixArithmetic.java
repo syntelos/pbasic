@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class PrefixArithmetic
     extends Prefix
 {
-    public final static Pattern Expr = new jauk.Re("<_>*([aA][bB][sS]|[sS][qQ][rR]|[sS][iI][nN]|[dD][iI][vV]\"32\"|\"~\")<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*([aA][bB][sS]|[sS][qQ][rR]|[sS][iI][nN]|[dD][iI][vV]\"32\"|\"~\")");
 
 
     public PrefixArithmetic(Scanner scanner)

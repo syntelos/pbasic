@@ -32,7 +32,7 @@ import jauk.Scanner;
 public class Goto
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[gG][oO][tT][oO]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[gG][oO][tT][oO]<_>");
 
     public Goto(Scanner scanner)
         throws IOException, Syntax

@@ -30,7 +30,7 @@ import jauk.Scanner;
 public class Range
     extends Infix
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(\"[tT][oO]\")<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"[tT][oO]\")");
 
 
     public Range(Scanner scanner)

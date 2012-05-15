@@ -32,7 +32,7 @@ import jauk.Scanner;
 public class Include
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[iI][nN][cC][lL][uU][dD][eE]<_>*\"\"\"(<Alpha>|<Digit>|_|<Dot>)+\"\"\"<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[iI][nN][cC][lL][uU][dD][eE]<_>+<DoubleQuoted>");
 
     public Include(Scanner scanner)
         throws IOException, Syntax

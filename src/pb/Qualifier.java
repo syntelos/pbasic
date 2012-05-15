@@ -32,7 +32,8 @@ import jauk.Scanner;
 public class Qualifier
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*(\"[\"<_>*<Digit>+<_>*\"]\"|<Dot><_>*<Digit>+)<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*(\"[\"<_>*(<AlphaNum>|_)+<_>*\"]\"|<Dot><_>*(<AlphaNum>|_)+)");
+
 
     public Qualifier(Scanner scanner)
         throws IOException, Syntax

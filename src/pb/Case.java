@@ -32,7 +32,7 @@ import jauk.Scanner;
 public class Case
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[gG][oO][tT][oO]<_>*");
+    public final static Pattern Expr = new jauk.Re("<_>*[cC][aA][sS][eE]");
 
     public Case(Scanner scanner)
         throws IOException, Syntax
@@ -48,13 +48,21 @@ public class Case
             }
             catch (Jump j){
 
-                throw new Syntax(this,scanner,"Missing identifier following goto");
+                throw new Syntax(this,scanner,"Missing identifier following select 'case'");
             }
 
             try {
                 this.add(new Comment(scanner));
             }
             catch (Jump j){
+            }
+
+            while (true){
+                try {
+                    this.add(new Statement(scanner));
+                }
+                catch (Jump j){
+                }
             }
         }
         else
