@@ -43,11 +43,20 @@ public class Source
 {
 
 
+    public Source(){
+        super();
+    }
     public Source(Scanner scanner)
         throws IOException, Syntax
     {
         super();
+        this.parse(scanner);
+    }
 
+
+    public void parse(Scanner scanner)
+        throws IOException, Syntax
+    {
         while (scanner.isNotEmpty()){
             try {
                 this.add(new Comment(scanner));

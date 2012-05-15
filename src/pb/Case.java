@@ -32,41 +32,100 @@ import jauk.Scanner;
 public class Case
     extends Node
 {
-    public final static Pattern Expr = new jauk.Re("<_>*[cC][aA][sS][eE]");
+    public enum Use {
+        Head, Body;
+    }
 
-    public Case(Scanner scanner)
+    public final static Pattern Expr = new jauk.Re("<_>*[cC][aA][sS][eE]");
+    public final static Pattern Colon = new jauk.Re("<_>*:");
+
+
+    public Case(Scanner scanner, Use use)
         throws IOException, Syntax
     {
         super(scanner);
-        String input = scanner.next(Expr);
-        if (null != input){
 
-            this.setText(input);
+        final String input;
 
-            try {
-                this.add(new Identifier(scanner));
-            }
-            catch (Jump j){
+        switch(use){
+        case Head:
+            input = scanner.next(Expr);
+            if (null != input){
 
-                throw new Syntax(this,scanner,"Missing identifier following select 'case'");
-            }
+                this.setText(input);
 
-            try {
-                this.add(new Comment(scanner));
-            }
-            catch (Jump j){
-            }
-
-            while (true){
                 try {
-                    this.add(new Statement(scanner));
+                    this.add(new Identifier(scanner));
+                }
+                catch (Jump j0){
+                    try {
+                        this.add(new Literal(scanner));
+                    }
+                    catch (Jump j1){
+
+                        throw new Syntax(this,scanner,"Missing identifier following select 'case'");
+                    }
+                }
+
+                try {
+                    this.add(new Comment(scanner));
                 }
                 catch (Jump j){
                 }
             }
+            else
+                throw new Jump();
+
+            return;
+
+        case Body:
+            input = scanner.next(Expr);
+            if (null != input){
+
+                this.setText(input);
+
+                try {
+                    this.add(new Identifier(scanner));
+                }
+                catch (Jump j0){
+                    try {
+                        this.add(new Literal(scanner));
+                    }
+                    catch (Jump j1){
+
+                        throw new Syntax(this,scanner,"Missing identifier following select 'case'");
+                    }
+                }
+
+                final String colon = scanner.next(Colon);
+                if (null != colon){
+
+                    try {
+                        this.add(new Comment(scanner));
+                    }
+                    catch (Jump j){
+                    }
+
+                    try {
+                        while (true){
+
+                            this.add(new Statement(scanner));
+                        }
+                    }
+                    catch (Jump j){
+                    }
+                }
+                else
+                    throw new Syntax(this,scanner,"Missing colon (:) following select 'case' <identifier>");
+            }
+            else
+                throw new Jump();
+
+            return;
+
+        default:
+            throw new Error(use.name());
         }
-        else
-            throw new Jump();
     }
 
 

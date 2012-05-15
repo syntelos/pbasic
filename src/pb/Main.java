@@ -35,13 +35,16 @@ public class Main {
             final Resource source = new Resource(new File(argv[0]));
             try {
                 final Scanner in = new Scanner(source);
+
+                final Source doc = new Source();
                 try {
-                    Source doc = new Source(in);
+                    doc.parse(in);
 
                     doc.print();
                 }
                 catch (Syntax sx){
                     sx.printStackTrace();
+                    doc.print();
                     java.lang.System.exit(1);
                 }
                 finally {

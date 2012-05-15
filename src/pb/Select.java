@@ -44,7 +44,7 @@ public class Select
             this.setText(input);
 
             try {
-                this.add(new Case(scanner));
+                this.add(new Case(scanner,Case.Use.Head));
             }
             catch (Jump j){
 
@@ -52,9 +52,20 @@ public class Select
             }
 
             try {
+                while (true){
+
+                    this.add(new Case(scanner,Case.Use.Body));
+                }
+            }
+            catch (Jump j){
+            }
+
+            try {
                 this.add(new EndSelect(scanner));
             }
             catch (Jump j){
+
+                throw new Syntax(this,scanner,"Missing 'end select' following 'select'");
             }
         }
         else
