@@ -120,14 +120,31 @@ public abstract class Node
         Node child = this;
         Node parent = this.parent;
         if (null != parent){
+            StringBuilder string = new StringBuilder();
+
             while (null != parent && (!parent.contains(child))){
+                final int d = child.depth();
+
+                string.append(String.format("trace depth %02d ------------------ %02d ------------------ %02d ------------------%n",d,d,d));
+
+                string.append(child.toString(d));
+
                 child = parent;
                 parent = parent.getParent();
             }
-            return child.toString();
+            return string.toString();
         }
         else
             return this.toString();
+    }
+    public final int depth(){
+        int d = 0;
+        Node p = this.parent;
+        while (null != p){
+            d += 1;
+            p = p.parent;
+        }
+        return d;
     }
     public final String toString(){
 
@@ -140,11 +157,11 @@ public abstract class Node
 
         if (null != this.text){
 
-            string.append(String.format("%s\t%s%n",this.getName(),this.getText()));
+            string.append(String.format("%s:%d:\t%s%n",this.getName(),this.linenumber,this.getText()));
         }
         else {
 
-            string.append(String.format("%s%n",this.getName()));
+            string.append(String.format("%s:%d:%n",this.getName(),this.linenumber));
         }
 
 
@@ -153,6 +170,14 @@ public abstract class Node
             string.append(child.toString(indent+1));
         }
         return string.toString();
+    }
+    @Override
+    public final int indexOf(Node child){
+        for (int cc = 0, count = this.size(); cc < count; cc++){
+            if (child == this.get(cc))
+                return cc;
+        }
+        return -1;
     }
 
 

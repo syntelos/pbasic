@@ -43,8 +43,9 @@ public class Main {
                     doc.print(java.lang.System.out);
                 }
                 catch (Syntax sx){
+
                     sx.printStackTrace(java.lang.System.out);
-                    doc.print(java.lang.System.out);
+
                     java.lang.System.exit(1);
                 }
                 finally {
