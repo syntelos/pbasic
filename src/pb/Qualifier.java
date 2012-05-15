@@ -35,10 +35,10 @@ public class Qualifier
     public final static Pattern Expr = new jauk.Re("<_>*(\"[\"<_>*(<AlphaNum>|_)+<_>*\"]\"|<Dot><_>*(<AlphaNum>|_)+)");
 
 
-    public Qualifier(Scanner scanner)
+    public Qualifier(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 

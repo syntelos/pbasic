@@ -35,10 +35,10 @@ public class WhiteSpace
     public final static Pattern Expr = new jauk.Re("<_>+");
 
 
-    public WhiteSpace(Scanner scanner)
+    public WhiteSpace(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 

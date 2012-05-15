@@ -33,10 +33,10 @@ public abstract class Prefix
 {
 
 
-    public Prefix(Scanner scanner)
+    public Prefix(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
     }
 
 }

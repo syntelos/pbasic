@@ -33,10 +33,10 @@ public class PrefixLogical
     public final static Pattern Expr = new jauk.Re("<_>*(\"!\"|[nN][oO][tT])");
 
 
-    public PrefixLogical(Scanner scanner)
+    public PrefixLogical(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         String input = scanner.next(Expr);
         if (null != input){

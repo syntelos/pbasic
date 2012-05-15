@@ -32,10 +32,10 @@ public class Literal
 {
     public final static Pattern Expr = new jauk.Re("<_>*(\"$\"<Hex>+|<Digit>+(<Dot><Digit>+)*|\"%\"[01]+)");
 
-    public Literal(Scanner scanner)
+    public Literal(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 

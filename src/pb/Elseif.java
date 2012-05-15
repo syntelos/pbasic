@@ -34,17 +34,17 @@ public class Elseif
 {
     public final static Pattern Expr = new jauk.Re("<_>*[eE][lL][sS][eE][iI][fF]<_>");
 
-    public Elseif(Scanner scanner)
+    public Elseif(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Subexpression(scanner));
+                this.add(new Subexpression(this,scanner));
             }
             catch (Jump j1){
 
@@ -52,7 +52,7 @@ public class Elseif
             }
 
             try {
-                this.add(new Then(scanner));
+                this.add(new Then(this,scanner));
             }
             catch (Jump j1){
 
@@ -62,7 +62,7 @@ public class Elseif
             try {
                 while (true){
 
-                    this.add(new Statement(scanner));
+                    this.add(new Statement(this,scanner));
                 }
             }
             catch (Jump j){

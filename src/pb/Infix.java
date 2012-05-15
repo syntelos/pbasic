@@ -33,10 +33,10 @@ public abstract class Infix
 {
 
 
-    public Infix(Scanner scanner)
+    public Infix(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
     }
 
 }

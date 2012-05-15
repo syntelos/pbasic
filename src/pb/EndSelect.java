@@ -33,10 +33,10 @@ public class EndSelect
     public final static Pattern Expr = new jauk.Re("<_>*[eE][nN][dD]<_>+[sS][eE][lL][eE][cC][tT]");
 
 
-    public EndSelect(Scanner scanner)
+    public EndSelect(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 

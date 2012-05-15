@@ -34,17 +34,17 @@ public class Config
 
 
 
-    public Config(Scanner scanner)
+    public Config(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super();
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Comment(scanner));
+                this.add(new Comment(this,scanner));
             }
             catch (Jump j){
             }

@@ -35,17 +35,17 @@ public class Group
     public final static Pattern Expr = new jauk.Re("<_>*\"(\"<_>*");
 
 
-    public Group(Scanner scanner)
+    public Group(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Subexpression(scanner));
+                this.add(new Subexpression(this,scanner));
             }
             catch (Jump j){
 
@@ -53,7 +53,7 @@ public class Group
             }
 
             try {
-                this.add(new EndGroup(scanner));
+                this.add(new EndGroup(this,scanner));
             }
             catch (Jump j){
 
@@ -61,7 +61,7 @@ public class Group
             }
 
             try {
-                this.add(new Comment(scanner));
+                this.add(new Comment(this,scanner));
             }
             catch (Jump j){
             }

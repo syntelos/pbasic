@@ -35,16 +35,16 @@ public class Gosub
     public final static Pattern Expr = new jauk.Re("<_>*[gG][oO][sS][uU][bB]<_>");
 
 
-    public Gosub(Scanner scanner)
+    public Gosub(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
             this.setText(input);
 
             try {
-                this.add(new Identifier(scanner));
+                this.add(new Identifier(this,scanner));
             }
             catch (Jump j){
 
@@ -52,7 +52,7 @@ public class Gosub
             }
 
             try {
-                this.add(new Comment(scanner));
+                this.add(new Comment(this,scanner));
             }
             catch (Jump j){
             }

@@ -34,24 +34,24 @@ public class Include
 {
     public final static Pattern Expr = new jauk.Re("<_>*[iI][nN][cC][lL][uU][dD][eE]<_>+<DoubleQuoted>");
 
-    public Include(Scanner scanner)
+    public Include(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Identifier(scanner));
+                this.add(new Identifier(this,scanner));
             }
             catch (Jump j){
                 throw new Syntax(this,scanner,"Missing identifier following include");
             }
 
             try {
-                this.add(new Comment(scanner));
+                this.add(new Comment(this,scanner));
             }
             catch (Jump j){
             }

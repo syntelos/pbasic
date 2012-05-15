@@ -35,10 +35,10 @@ public class QuotedString
 
 
 
-    public QuotedString(Scanner scanner)
+    public QuotedString(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         String input = scanner.next(Expr);
         if (null != input){

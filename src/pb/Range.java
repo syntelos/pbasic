@@ -33,17 +33,17 @@ public class Range
     public final static Pattern Expr = new jauk.Re("<_>*(\"[tT][oO]\")");
 
 
-    public Range(Scanner scanner)
+    public Range(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
             try {
-                this.add(new Literal(scanner));
+                this.add(new Literal(this,scanner));
             }
             catch (Jump j){
 

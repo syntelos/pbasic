@@ -33,10 +33,10 @@ public class Identifier
     public final static Pattern Expr = new jauk.Re("<_>*<Alpha>(<AlphaNum>|_)+");
 
 
-    public Identifier(Scanner scanner)
+    public Identifier(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
@@ -50,7 +50,7 @@ public class Identifier
                 this.setText(input);
 
                 try {
-                    this.add(new Qualifier(scanner));
+                    this.add(new Qualifier(this,scanner));
                 }
                 catch (Jump j){
                 }

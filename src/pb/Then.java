@@ -32,17 +32,18 @@ public class Then
 {
     public final static Pattern Expr = new jauk.Re("<_>*[tT][hH][eE][nN]");
 
-    public Then(Scanner scanner)
+
+    public Then(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Comment(scanner));
+                this.add(new Comment(this,scanner));
             }
             catch (Jump j){
             }

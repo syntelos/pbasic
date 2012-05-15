@@ -35,17 +35,17 @@ public class While
     public final static Pattern Expr = new jauk.Re("<_>*[wW][hH][iI][lL][eE]");
 
 
-    public While(Scanner scanner)
+    public While(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Subexpression(scanner));
+                this.add(new Subexpression(this,scanner));
             }
             catch (Jump j1){
 
@@ -55,14 +55,14 @@ public class While
             try {
                 while (true){
 
-                    this.add(new Statement(scanner));
+                    this.add(new Statement(this,scanner));
                 }
             }
             catch (Jump j){
             }
 
             try {
-                this.add(new EndWhile(scanner));
+                this.add(new EndWhile(this,scanner));
             }
             catch (Jump j){
 
@@ -70,7 +70,7 @@ public class While
             }
 
             try {
-                this.add(new Comment(scanner));
+                this.add(new Comment(this,scanner));
             }
             catch (Jump j){
             }

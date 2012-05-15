@@ -34,24 +34,24 @@ public class For
 {
     public final static Pattern Expr = new jauk.Re("<_>*[fF][oO][rR]<_>");
 
-    public For(Scanner scanner)
+    public For(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Subexpression(scanner));
+                this.add(new Subexpression(this,scanner));
             }
             catch (Jump j1){
 
                 throw new Syntax(this,scanner,"Missing range intializer subexpression following for");
             }
             try {
-                this.add(new Range(scanner));
+                this.add(new Range(this,scanner));
             }
             catch (Jump j1){
 
@@ -61,14 +61,14 @@ public class For
             try {
                 while (true){
 
-                    this.add(new Statement(scanner));
+                    this.add(new Statement(this,scanner));
                 }
             }
             catch (Jump j){
             }
 
             try {
-                this.add(new EndFor(scanner));
+                this.add(new EndFor(this,scanner));
             }
             catch (Jump j){
 
@@ -76,7 +76,7 @@ public class For
             }
 
             try {
-                this.add(new Comment(scanner));
+                this.add(new Comment(this,scanner));
             }
             catch (Jump j){
             }

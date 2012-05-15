@@ -33,10 +33,11 @@ public class System
     public final static Pattern Expr = new jauk.Re("<_>*[sS][yY][sS][tT][eE][mM]");
 
 
-    public System(Scanner scanner)
+    public System(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super();
+        super(parent,scanner);
+
         String input = scanner.next(Expr);
         if (null != input){
 

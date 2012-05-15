@@ -33,10 +33,10 @@ public class Address
     public final static Pattern Expr = new jauk.Re("<_>*(\"$\"<Hex>+|[bB][aA][nN][kK]<Digit>+)");
 
 
-    public Address(Scanner scanner)
+    public Address(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super();
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 

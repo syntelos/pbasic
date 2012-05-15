@@ -40,11 +40,11 @@ public class Main {
                 try {
                     doc.parse(in);
 
-                    doc.print();
+                    doc.print(java.lang.System.out);
                 }
                 catch (Syntax sx){
-                    sx.printStackTrace();
-                    doc.print();
+                    sx.printStackTrace(java.lang.System.out);
+                    doc.print(java.lang.System.out);
                     java.lang.System.exit(1);
                 }
                 finally {
@@ -52,7 +52,7 @@ public class Main {
                 }
             }
             catch (IOException exc){
-                java.lang.System.err.printf("Unable to read file '%s'%n",argv[0]);
+                java.lang.System.err.printf("Error: Unable to read file '%s'%n",argv[0]);
                 java.lang.System.exit(1);
             }
         }

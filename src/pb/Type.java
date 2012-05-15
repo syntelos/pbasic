@@ -33,17 +33,17 @@ public class Type
     public final static Pattern Expr = new jauk.Re("<_>*([bB][yY][tT][eE]|[wW][oO][rR][dD]|[bB][iI][tT]|[lL][oO][nN][gG])");
 
 
-    public Type(Scanner scanner)
+    public Type(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Qualifier(scanner));
+                this.add(new Qualifier(this,scanner));
             }
             catch (Jump j){
             }

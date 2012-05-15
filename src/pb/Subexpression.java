@@ -38,26 +38,26 @@ public class Subexpression
 {
 
 
-    public Subexpression(Scanner scanner)
+    public Subexpression(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        this(scanner,false);
+        this(parent,scanner,false);
     }
-    public Subexpression(Scanner scanner, boolean inline)
+    public Subexpression(Node parent, Scanner scanner, boolean inline)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         try {
-            this.add(new Group(scanner));
+            this.add(new Group(this,scanner));
         }
         catch (Jump j0){
             try {
-                this.add(new Identifier(scanner));
+                this.add(new Identifier(this,scanner));
             }
             catch (Jump j1){
 
-                this.add(new Literal(scanner));
+                this.add(new Literal(this,scanner));
             }
         }
 
@@ -66,15 +66,15 @@ public class Subexpression
              * Infix operators
              */
             try {
-                this.add(new Logical(scanner));
+                this.add(new Logical(this,scanner));
             }
             catch (Jump j0){
                 try {
-                    this.add(new Arithmetic(scanner));
+                    this.add(new Arithmetic(this,scanner));
                 }
                 catch (Jump j1){
 
-                    this.add(new Relational(scanner));
+                    this.add(new Relational(this,scanner));
                 }
             }
         }
@@ -82,7 +82,7 @@ public class Subexpression
 
             if (this.isHeadIdentifier()){
                 try {
-                    this.add(new Declaration(scanner));
+                    this.add(new Declaration(this,scanner));
                 }
                 catch (Jump j1){
                     try {
@@ -92,7 +92,7 @@ public class Subexpression
                          * Literals).  It must follow more particular
                          * patterns.
                          */
-                        this.add(new Sequence(scanner));
+                        this.add(new Sequence(this,scanner));
                     }
                     catch (Jump j2){
 
@@ -101,7 +101,7 @@ public class Subexpression
                     }
                 }
                 try {
-                    this.add(new Comment(scanner));
+                    this.add(new Comment(this,scanner));
                 }
                 catch (Jump j){
                 }
@@ -116,7 +116,7 @@ public class Subexpression
                  * Solitary Group
                  */
                 try {
-                    this.add(new Comment(scanner));
+                    this.add(new Comment(this,scanner));
                 }
                 catch (Jump j){
                 }
@@ -125,23 +125,23 @@ public class Subexpression
         }
 
         try {
-            this.add(new Group(scanner));
+            this.add(new Group(this,scanner));
         }
         catch (Jump j0){
             try {
-                this.add(new Identifier(scanner));
+                this.add(new Identifier(this,scanner));
                 try {
                     /*
                      * e.g. A = FOO 10
                      */
-                    this.add(new Literal(scanner));
+                    this.add(new Literal(this,scanner));
                 }
                 catch (Jump j1){
                 }
             }
             catch (Jump j1){
                 try {
-                    this.add(new Literal(scanner));
+                    this.add(new Literal(this,scanner));
                 }
                 catch (Jump j2){
 
@@ -154,7 +154,7 @@ public class Subexpression
         }
 
         try {
-            this.add(new Comment(scanner));
+            this.add(new Comment(this,scanner));
         }
         catch (Jump j){
         }

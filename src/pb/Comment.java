@@ -34,10 +34,10 @@ public class Comment
 
 
 
-    public Comment(Scanner scanner)
+    public Comment(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super();
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 

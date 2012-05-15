@@ -59,27 +59,27 @@ public class Source
     {
         while (scanner.isNotEmpty()){
             try {
-                this.add(new Comment(scanner));
+                this.add(new Comment(this,scanner));
             }
             catch (Jump j0){
                 try {
-                    this.add(new Config(scanner));
+                    this.add(new Config(this,scanner));
                 }
                 catch (Jump j1){
                     try {
-                        this.add(new Define(scanner));
+                        this.add(new Define(this,scanner));
                     }
                     catch (Jump j2){
                         try {
-                            this.add(new Label(scanner));
+                            this.add(new Label(this,scanner));
                         }
                         catch (Jump j3){
                             try {
-                                this.add(new Statement(scanner));
+                                this.add(new Statement(this,scanner));
                             }
                             catch (Jump j4){
                                 try {
-                                    this.add(new WhiteSpace(scanner));
+                                    this.add(new WhiteSpace(this,scanner));
                                 }
                                 catch (Jump j5){
 

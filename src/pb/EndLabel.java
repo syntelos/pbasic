@@ -33,10 +33,10 @@ public class EndLabel
     public final static Pattern Expr = new jauk.Re("<_>*[rR][eE][tT][uU][rR][nN]<_>");
 
 
-    public EndLabel(Scanner scanner)
+    public EndLabel(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 

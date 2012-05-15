@@ -33,10 +33,10 @@ public class PrefixArithmetic
     public final static Pattern Expr = new jauk.Re("<_>*([aA][bB][sS]|[sS][qQ][rR]|[sS][iI][nN]|[dD][iI][vV]\"32\"|\"~\")");
 
 
-    public PrefixArithmetic(Scanner scanner)
+    public PrefixArithmetic(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         String input = scanner.next(Expr);
         if (null != input){

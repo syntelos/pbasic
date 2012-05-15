@@ -34,17 +34,17 @@ public class Goto
 {
     public final static Pattern Expr = new jauk.Re("<_>*[gG][oO][tT][oO]<_>");
 
-    public Goto(Scanner scanner)
+    public Goto(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Identifier(scanner));
+                this.add(new Identifier(this,scanner));
             }
             catch (Jump j){
 
@@ -52,7 +52,7 @@ public class Goto
             }
 
             try {
-                this.add(new Comment(scanner));
+                this.add(new Comment(this,scanner));
             }
             catch (Jump j){
             }

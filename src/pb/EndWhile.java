@@ -33,10 +33,10 @@ public class EndWhile
     public final static Pattern Expr = new jauk.Re("<_>*[eE][nN][dD][wW][hH][iI][lL][eE]<_>");
 
 
-    public EndWhile(Scanner scanner)
+    public EndWhile(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 

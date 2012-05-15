@@ -33,10 +33,10 @@ public class Arithmetic
     public final static Pattern Expr = new jauk.Re("<_>*(\"+\"|\"-\"|\"*\"|\"**\"|\"*/\"|\"/\"|\"=\"|\"//\"|[hH][yY][pP]|[mM][iI][nN]|[mM][aA][xX]|[rR][eE][vV]|[dD][iI][gG]|\"<<\"|\">>\"|[aA][tT][nN]]|\"&\"|\"|\"|\"^\"|\"~\"|\"&/\"|\"|/\"|\"^/\")");
 
 
-    public Arithmetic(Scanner scanner)
+    public Arithmetic(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         String input = scanner.next(Expr);
         if (null != input){

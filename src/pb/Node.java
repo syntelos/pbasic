@@ -20,6 +20,7 @@
 package pb;
 
 import java.io.IOException;
+import java.io.PrintStream;
 
 import jauk.Scanner;
 
@@ -32,6 +33,8 @@ public abstract class Node
 
     private String name, capture, text;
 
+    private Node parent;
+
     public final int linenumber;
 
 
@@ -39,14 +42,23 @@ public abstract class Node
         super();
         this.linenumber = 0;
     }
-    public Node(Scanner scanner)
+    public Node(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
         super();
+        this.parent = parent;
         this.linenumber = scanner.currentLine();
     }
 
 
+    public final void destroy(){
+        this.parent = null;
+
+        for (Node child: this){
+
+            child.destroy();
+        }
+    }
     /**
      * Set once capture, set many trimmed text.
      */
@@ -76,13 +88,49 @@ public abstract class Node
         }
         return name;
     }
-
-
-    public void print(){
-
-        java.lang.System.out.println(this.toString());
+    public final boolean hasParent(){
+        return (null != this.parent);
     }
-    public String toString(){
+    public final Node getParent(){
+        return this.parent;
+    }
+    public final void print(PrintStream out){
+
+        out.println(this.toString());
+    }
+    /**
+     * List the node tree from the oldest unattached ancestor,
+     * otherwise list the subtree from this node.
+     * 
+     * In each node constructor, the pattern <code>add(new
+     * Node())</code> implies that the syntax exception (thrown from
+     * the node constructor) is called on an unattached subtree.  The
+     * add method has not been entered within the offending chain of
+     * constructors, and the nodes in this chain are not present in
+     * the list of children of their respective parents.  
+     * 
+     * This method lists a subtree of unattached nodes by finding and
+     * listing the oldest, unattached ancestor.
+     * 
+     * @see Syntax
+     * @see #toString()
+     */
+    public final String trace(){
+
+        Node child = this;
+        Node parent = this.parent;
+        if (null != parent){
+            while (null != parent && (!parent.contains(child))){
+                child = parent;
+                parent = parent.getParent();
+            }
+            return child.toString();
+        }
+        else
+            return this.toString();
+    }
+    public final String toString(){
+
         return this.toString(1);
     }
     public String toString(int indent){

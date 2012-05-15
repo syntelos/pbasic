@@ -32,10 +32,10 @@ public class EndIf
 {
     public final static Pattern Expr = new jauk.Re("<_>*[eE][nN][dD][iI][fF]<_>");
 
-    public EndIf(Scanner scanner)
+    public EndIf(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 

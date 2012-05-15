@@ -33,10 +33,10 @@ public class Logical
     public final static Pattern Expr = new jauk.Re("<_>*(\"&&\"|\"||\"|\"^^\"|[aA][nN][dD]|[oO][rR]|[xX][oO][rR]|[aA][nN][dD][nN][oO][tT]|[oO][rR][nN][oO][tT]|[xX][oO][rR][nN][oO][tT])");
 
 
-    public Logical(Scanner scanner)
+    public Logical(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         String input = scanner.next(Expr);
         if (null != input){

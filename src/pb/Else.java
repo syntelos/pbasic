@@ -32,10 +32,10 @@ public class Else
 {
     public final static Pattern Expr = new jauk.Re("<_>*[eE][lL][sS][eE]<_>");
 
-    public Else(Scanner scanner)
+    public Else(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 

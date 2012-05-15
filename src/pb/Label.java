@@ -35,10 +35,10 @@ public class Label
     public final static Pattern Expr = new jauk.Re("<_>*<Alpha>(<Alpha>|<Digit>|_)+<_>*:");
 
 
-    public Label(Scanner scanner)
+    public Label(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
@@ -47,20 +47,20 @@ public class Label
             try {
                 while (true){
 
-                    this.add(new Statement(scanner));
+                    this.add(new Statement(this,scanner));
                 }
             }
             catch (Jump j){
             }
 
             try {
-                this.add(new EndLabel(scanner));
+                this.add(new EndLabel(this,scanner));
             }
             catch (Jump j){
             }
 
             try {
-                this.add(new Comment(scanner));
+                this.add(new Comment(this,scanner));
             }
             catch (Jump j){
             }

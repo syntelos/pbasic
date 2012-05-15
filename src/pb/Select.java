@@ -34,17 +34,17 @@ public class Select
 {
     public final static Pattern Expr = new jauk.Re("<_>*[sS][eE][lL][eE][cC][tT]");
 
-    public Select(Scanner scanner)
+    public Select(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Case(scanner,Case.Use.Head));
+                this.add(new Case(this,scanner,Case.Use.Head));
             }
             catch (Jump j){
 
@@ -54,14 +54,14 @@ public class Select
             try {
                 while (true){
 
-                    this.add(new Case(scanner,Case.Use.Body));
+                    this.add(new Case(this,scanner,Case.Use.Body));
                 }
             }
             catch (Jump j){
             }
 
             try {
-                this.add(new EndSelect(scanner));
+                this.add(new EndSelect(this,scanner));
             }
             catch (Jump j){
 

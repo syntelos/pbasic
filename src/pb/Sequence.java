@@ -38,28 +38,28 @@ public class Sequence
     public final static Pattern Expr = new jauk.Re("<_>*\",\"");
 
 
-    public Sequence(Scanner scanner)
+    public Sequence(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         while (true){
             try {
-                this.add(new QuotedString(scanner));
+                this.add(new QuotedString(this,scanner));
             }
             catch (Jump j0){
                 try {
-                    this.add(new Identifier(scanner));
+                    this.add(new Identifier(this,scanner));
                 }
                 catch (Jump j1){
 
                     try {
-                        this.add(new Literal(scanner));
+                        this.add(new Literal(this,scanner));
                     }
                     catch (Jump j2){
 
                         try {
-                            this.add(new Array(scanner));
+                            this.add(new Array(this,scanner));
                         }
                         catch (Jump j3){
 

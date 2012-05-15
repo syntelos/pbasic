@@ -40,26 +40,26 @@ public class Array
     public final static Pattern Close = new jauk.Re("<_>*\"]\"");
 
 
-    public Array(Scanner scanner)
+    public Array(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         String input = scanner.next(Open);
         if (null != input){
 
             do {
                 try {
-                    this.add(new QuotedString(scanner));
+                    this.add(new QuotedString(this,scanner));
                 }
                 catch (Jump j0){
                     try {
-                        this.add(new Identifier(scanner));
+                        this.add(new Identifier(this,scanner));
                     }
                     catch (Jump j1){
 
                         try {
-                            this.add(new Literal(scanner));
+                            this.add(new Literal(this,scanner));
                         }
                         catch (Jump j2){
 

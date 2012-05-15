@@ -34,10 +34,10 @@ public class If
 {
     public final static Pattern Expr = new jauk.Re("<_>*[iI][fF]");
 
-    public If(Scanner scanner)
+    public If(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
@@ -46,7 +46,7 @@ public class If
             this.setText(input);
 
             try {
-                this.add(new Subexpression(scanner));
+                this.add(new Subexpression(this,scanner));
             }
             catch (Jump j1){
 
@@ -54,7 +54,7 @@ public class If
             }
 
             try {
-                this.add(new Then(scanner));
+                this.add(new Then(this,scanner));
             }
             catch (Jump j1){
 
@@ -66,7 +66,7 @@ public class If
 
                 while (true){
 
-                    this.add(new Statement(scanner,inline));
+                    this.add(new Statement(this,scanner,inline));
 
                     inline = (first == scanner.currentLine());
                 }
@@ -77,19 +77,19 @@ public class If
             if (inline){
 
                 try {
-                    this.add(new Comment(scanner));
+                    this.add(new Comment(this,scanner));
                 }
                 catch (Jump j){
                 }
             }
             else {
                 try {
-                    this.add(new Else(scanner));
+                    this.add(new Else(this,scanner));
 
                     try {
                         while (true){
 
-                            this.add(new Statement(scanner));
+                            this.add(new Statement(this,scanner));
                         }
                     }
                     catch (Jump j){
@@ -99,13 +99,13 @@ public class If
                 }
 
                 try {
-                    this.add(new EndIf(scanner));
+                    this.add(new EndIf(this,scanner));
                 }
                 catch (Jump j){
                 }
 
                 try {
-                    this.add(new Comment(scanner));
+                    this.add(new Comment(this,scanner));
                 }
                 catch (Jump j){
                 }

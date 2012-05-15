@@ -33,17 +33,17 @@ public class Define
     public final static Pattern Expr = new jauk.Re("<_>*[dD][eE][fF][iI][nN][eE]<_>+(<Alpha>|\"_\")+<_>+(<AlphaNumDot>|\"_\")+");
 
 
-    public Define(Scanner scanner)
+    public Define(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super();
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Comment(scanner));
+                this.add(new Comment(this,scanner));
             }
             catch (Jump j){
             }

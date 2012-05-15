@@ -33,10 +33,10 @@ public class Relational
     public final static Pattern Expr = new jauk.Re("<_>*(\"==\"|\"=\"|\"!=\"|\"<>\"|\"<\"|\">\"|\"<=\"|\">=\")");
 
 
-    public Relational(Scanner scanner)
+    public Relational(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         String input = scanner.next(Expr);
         if (null != input){

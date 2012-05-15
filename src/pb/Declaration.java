@@ -36,10 +36,10 @@ public class Declaration
     public final boolean constant;
 
 
-    public Declaration(Scanner scanner)
+    public Declaration(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         String input = scanner.next(Expr);
         if (null != input){
@@ -49,16 +49,16 @@ public class Declaration
             this.constant = ("con".equals(this.getText().toLowerCase()));
             try {
 
-                this.add(new Type(scanner));
+                this.add(new Type(this,scanner));
                 try {
 
-                    this.add(new Address(scanner));
+                    this.add(new Address(this,scanner));
                 }
                 catch (Jump j0){
                 }
                 try {
 
-                    this.add(new System(scanner));
+                    this.add(new System(this,scanner));
                 }
                 catch (Jump j0){
                 }
@@ -68,12 +68,12 @@ public class Declaration
                 if (this.constant){
                     try {
 
-                        this.add(new Identifier(scanner));
+                        this.add(new Identifier(this,scanner));
                     }
                     catch (Jump j1){
                         try {
 
-                            this.add(new Literal(scanner));
+                            this.add(new Literal(this,scanner));
                         }
                         catch (Jump j2){
 
@@ -84,7 +84,7 @@ public class Declaration
                 else {
                     try {
 
-                        this.add(new Identifier(scanner));
+                        this.add(new Identifier(this,scanner));
                     }
                     catch (Jump j1){
 

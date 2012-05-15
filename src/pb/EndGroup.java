@@ -36,10 +36,10 @@ public class EndGroup
     public final static Pattern Expr = new jauk.Re("<_>*\")\"");
 
 
-    public EndGroup(Scanner scanner)
+    public EndGroup(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 

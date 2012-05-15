@@ -40,10 +40,10 @@ public class Case
     public final static Pattern Colon = new jauk.Re("<_>*:");
 
 
-    public Case(Scanner scanner, Use use)
+    public Case(Node parent, Scanner scanner, Use use)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
 
         final String input;
 
@@ -55,11 +55,11 @@ public class Case
                 this.setText(input);
 
                 try {
-                    this.add(new Identifier(scanner));
+                    this.add(new Identifier(this,scanner));
                 }
                 catch (Jump j0){
                     try {
-                        this.add(new Literal(scanner));
+                        this.add(new Literal(this,scanner));
                     }
                     catch (Jump j1){
 
@@ -68,7 +68,7 @@ public class Case
                 }
 
                 try {
-                    this.add(new Comment(scanner));
+                    this.add(new Comment(this,scanner));
                 }
                 catch (Jump j){
                 }
@@ -85,11 +85,11 @@ public class Case
                 this.setText(input);
 
                 try {
-                    this.add(new Identifier(scanner));
+                    this.add(new Identifier(this,scanner));
                 }
                 catch (Jump j0){
                     try {
-                        this.add(new Literal(scanner));
+                        this.add(new Literal(this,scanner));
                     }
                     catch (Jump j1){
 
@@ -101,7 +101,7 @@ public class Case
                 if (null != colon){
 
                     try {
-                        this.add(new Comment(scanner));
+                        this.add(new Comment(this,scanner));
                     }
                     catch (Jump j){
                     }
@@ -109,7 +109,7 @@ public class Case
                     try {
                         while (true){
 
-                            this.add(new Statement(scanner));
+                            this.add(new Statement(this,scanner));
                         }
                     }
                     catch (Jump j){

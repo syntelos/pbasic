@@ -35,15 +35,15 @@ public class Statement
     public final static Pattern Expr = new jauk.Re("<_>*:");
 
 
-    public Statement(Scanner scanner)
+    public Statement(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        this(scanner,false);
+        this(parent,scanner,false);
     }
-    public Statement(Scanner scanner, boolean inline)
+    public Statement(Node parent, Scanner scanner, boolean inline)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
@@ -53,35 +53,35 @@ public class Statement
             throw new Jump();
 
         try {
-            this.add(new Include(scanner));
+            this.add(new Include(this,scanner));
         }
         catch (Jump j0){
             try {
-                this.add(new Gosub(scanner));
+                this.add(new Gosub(this,scanner));
             }
             catch (Jump j1){
                 try {
-                    this.add(new Goto(scanner));
+                    this.add(new Goto(this,scanner));
                 }
                 catch (Jump j2){
                     try {
-                        this.add(new If(scanner));
+                        this.add(new If(this,scanner));
                     }
                     catch (Jump j3){
                         try {
-                            this.add(new Select(scanner));
+                            this.add(new Select(this,scanner));
                         }
                         catch (Jump j4){
                             try {
-                                this.add(new While(scanner));
+                                this.add(new While(this,scanner));
                             }
                             catch (Jump j5){
                                 try {
-                                    this.add(new For(scanner));
+                                    this.add(new For(this,scanner));
                                 }
                                 catch (Jump j6){
                                     try {
-                                        this.add(new Subexpression(scanner,inline));
+                                        this.add(new Subexpression(this,scanner,inline));
                                     }
                                     catch (Jump j7){
 
@@ -98,7 +98,7 @@ public class Statement
             }
         }
         try {
-            this.add(new Comment(scanner));
+            this.add(new Comment(this,scanner));
         }
         catch (Jump j){
         }

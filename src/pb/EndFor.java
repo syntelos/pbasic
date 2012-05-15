@@ -33,17 +33,17 @@ public class EndFor
     public final static Pattern Expr = new jauk.Re("<_>*[nN][eE][xX][tT]<_>");
 
 
-    public EndFor(Scanner scanner)
+    public EndFor(Node parent, Scanner scanner)
         throws IOException, Syntax
     {
-        super(scanner);
+        super(parent,scanner);
         String input = scanner.next(Expr);
         if (null != input){
 
             this.setText(input);
 
             try {
-                this.add(new Identifier(scanner));
+                this.add(new Identifier(this,scanner));
             }
             catch (Jump j){
 
